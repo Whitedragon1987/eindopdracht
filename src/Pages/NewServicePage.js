@@ -1,15 +1,18 @@
 import React from "react";
-import SaveButton from "../componenten/SaveButton";
+import SaveButton from "../componenten/Buttons/SaveButton/SaveButton";
 import {useForm} from "react-hook-form";
-import stylesheetNewServicePage from "../css/stylesheetNewServicePage.css"
 
 function NewServicePage() {
-    const{ handleSubmit, register} = useForm();
+    const { handleSubmit, register, watch, formState: {errors}} = useForm();
+    const selectMachineNeeded = watch("machineNeeded");
+    const selectEmployeeNeeded = watch("employeesNeeded")
 
     function onRequestSubmit(e) {
         e.preventDefault();
         console.log("Submitted")
     }
+
+    console.log(selectMachineNeeded)
 
     return (
         <>
@@ -26,7 +29,7 @@ function NewServicePage() {
                         <input
                             type="text"
                             id="name"
-                            {...register("name")}
+                            {...register("name", { required: true})}
                         />
 
                         <label htmlFor="description">
@@ -36,7 +39,7 @@ function NewServicePage() {
                         <input
                             type="text"
                             id="description"
-                            {...register("description")}
+                            {...register("description", { required: true})}
                         />
 
                         <label htmlFor="serviceDate">
@@ -46,78 +49,95 @@ function NewServicePage() {
                         <input
                             type="text"
                             id="serviceDate"
-                            {...register("serviceDate")}
+                            {...register("serviceDate", { required: true})}
                         />
 
-                        <label htmlFor="serviceTime">
+                        <label htmlFor="serviceStartTime">
                             Starttijd van Karwei :
                         </label>
 
                         <input
                             type="text"
-                            id="serviceTime"
-                            {...register("serviceTime")}
+                            id="serviceStartTime"
+                            {...register("serviceStartTime", { required: true})}
                         />
 
                         <label htmlFor="machineNeeded">
-                            Machine nodig?
+                            Machine(s) nodig?
                         </label>
 
                         <input
                             type="checkbox"
                             name="machineNeeded"
                             id="machineNeeded"
-                        />
-
-                        <label htmlFor="machineName">
-                            Naam van machine :
-                        </label>
-
-                        <input
-                            type="text"
-                            id="machineName"
-                            {...register("machineName")}
-                        />
-
-                        <label htmlFor="statusMachine">
-                            Status van de machine :
-                        </label>
-
-                        <input
-                            type="text"
-                            id="statusMachine"
-                            {...register("statusMachine")}
+                            {...register("machineNeeded")}
                         />
 
                         <label htmlFor="employeesNeeded">
-                            Medewerker(s) nodig?
+                        Medewerker(s) nodig?
                         </label>
 
                         <input
                             type="checkbox"
                             name="employeesNeeded"
                             id="employeesNeeded"
+                            {...register("employeesNeeded")}
                         />
+                    </div>
 
-                        <label htmlFor="employeeName">
-                            Medewerker :
-                        </label>
+                    <br/>
 
-                        <input
-                            type="text"
-                            id="employeeName"
-                            {...register("employee")}
-                        />
+                    {selectMachineNeeded && (
+                        <div id="machineNeededWrapper">
+                            <label htmlFor="machineName">
+                                Naam van machine :
+                            </label>
 
-                        <label htmlFor="statusEmployee">
-                            Status van de medewerker :
-                        </label>
+                            <input
+                                type="text"
+                                id="machineName"
+                                {...register("machineName")}
+                            />
+                        </div> )}
 
-                        <input
-                            type="text"
-                            id="statusEmployee"
-                            {...register("statusEmployee")}
-                        />
+                    <br/>
+
+                    {selectEmployeeNeeded &&(
+                        <div id="employeeWrapper">
+                            <label htmlFor="employeeName">
+                                Medewerker :
+                            </label>
+
+                            <input
+                                type="text"
+                                id="employeeName"
+                                {...register("employee")}
+                            />
+                        </div>)}
+
+
+
+
+                    <div>
+                        {/*<label htmlFor="statusMachine">*/}
+                        {/*     Status van de machine :*/}
+                        {/* </label>*/}
+
+                        {/* <input*/}
+                        {/*     type="text"*/}
+                        {/*     id="statusMachine"*/}
+                        {/*     {...register("statusMachine")}*/}
+                        {/* />*/}
+
+                        {/*<label htmlFor="statusEmployee">*/}
+                        {/*    Status van de medewerker :*/}
+                        {/*</label>*/}
+
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    id="statusEmployee"*/}
+                        {/*    {...register("statusEmployee")}*/}
+                        {/*/>*/}
 
 
                         <br/>
@@ -129,6 +149,7 @@ function NewServicePage() {
                 </form>
             </div>
         </>
+
     )
 }
 

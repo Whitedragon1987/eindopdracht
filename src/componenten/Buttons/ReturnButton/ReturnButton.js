@@ -4,7 +4,7 @@ import styles from "./ReturnButton.module.css"
 function ReturnButton() {
 
     return(
-        <button>
+        <button className={styles['return-button']}>
             Terug
         </button>
     )

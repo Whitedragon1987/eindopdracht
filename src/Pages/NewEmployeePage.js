@@ -1,5 +1,5 @@
 import React from "react";
-import SaveButton from "../componenten/SaveButton";
+import SaveButton from "../componenten/Buttons/SaveButton/SaveButton";
 import {useForm} from "react-hook-form";
 
 function NewEmployeePage() {

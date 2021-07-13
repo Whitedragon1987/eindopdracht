@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "./SendButton.module.css"
 
 function SendButton() {
 
     return(
-        <button>
+        <button className={styles['send-button']}>
            Verzenden!
         </button>
     )
