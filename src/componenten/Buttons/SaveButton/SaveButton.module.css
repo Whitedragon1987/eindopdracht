@@ -1,7 +1,7 @@
 .save-button{
-    position: absolute;
-    left: 93%;
-    top: 50%;
+    position: fixed;
+    left: 47%;
+    top: 83%;
     font-size: 20px;
     border-color: yellow;
     color: black;

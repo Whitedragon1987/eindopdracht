@@ -1,0 +1,9 @@
+.sign-in-button {
+    position: fixed;
+    top: 44%;
+    right: 50%;
+    font-size: 20px;
+    border-color: yellow;
+    color: black;
+    background-color: yellow;
+}

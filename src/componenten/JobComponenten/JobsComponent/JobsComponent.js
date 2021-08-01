@@ -4,7 +4,7 @@ import styles from "./JobsComponent.module.css"
 function JobsComponent() {
 
     return(
-        <div id="pageWrapper" className={styles['jobss-component']}>
+        <div id="pageWrapper" className={styles['jobs-component']}>
 
             <h1 className="job-name">Naam :</h1>
             <p>Dienst</p>

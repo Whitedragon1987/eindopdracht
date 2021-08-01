@@ -4,7 +4,7 @@ import styles from "./SaveButton.module.css"
 function SaveButton() {
 
     return(
-        <button className={styles['safe-button']}>
+        <button className={styles['save-button']}>
             Opslaan!
         </button>
     )

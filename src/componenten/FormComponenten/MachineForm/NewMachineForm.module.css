@@ -1,0 +1,17 @@
+.new-machine-form{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    position: fixed;
+    top: 25%;
+    left: 43%;
+}
+
+.new-machine{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    position: fixed;
+    top: 15%;
+    left: 45%;
+}

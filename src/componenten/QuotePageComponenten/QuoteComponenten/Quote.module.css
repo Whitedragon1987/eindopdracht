@@ -1,0 +1,18 @@
+.quote-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+}
+
+.preference-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
+.input-description{
+    width: 500px;
+    height: 200px;
+}

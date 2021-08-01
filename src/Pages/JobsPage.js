@@ -3,6 +3,7 @@ import JobsComponent from "../componenten/JobComponenten/JobsComponent/JobsCompo
 import NextButton from "../componenten/Buttons/NextButton/NextButton";
 import BackButton from "../componenten/Buttons/BackButton/BackButton";
 
+
 function JobsPage() {
 
     return(
@@ -10,17 +11,29 @@ function JobsPage() {
             <div>
                 <JobsComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <JobsComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <JobsComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <JobsComponent/>
             </div>
+
             <NextButton/>
+
             <BackButton/>
+
         </>
     )
 

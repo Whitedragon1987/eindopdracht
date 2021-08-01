@@ -1,5 +1,5 @@
 import React from "react";
-import kraan from "../../assets/kraan.jpg";
+import kraan from "../../assets/Machines/kraan.jpg";
 import styles from "./ImageComponent.module.css"
 
 function ImageComponent() {

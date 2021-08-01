@@ -10,12 +10,21 @@ function MachinesPage() {
             <div>
                 <MachinesComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <MachinesComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <MachinesComponent/>
             </div>
+
+            <br/>
+
             <div>
                 <MachinesComponent/>
             </div>

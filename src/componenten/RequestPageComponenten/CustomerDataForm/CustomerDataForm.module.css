@@ -1,14 +1,16 @@
-.imageTitles, .images, .dropdownMenuWrapper, .preference-wrapper {
+.customer-data-form{
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
 }
 
-h2{
+.alternate-address{
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     justify-items: center;
 }
 
-
+input{
+    background-color: black;
+}
 
