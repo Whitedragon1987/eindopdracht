@@ -1,4 +1,4 @@
-import Request from "../componenten/RequestPageComponenten/RequestComponenten/Request";
+import Request from "../componenten/RequestPageComponents/RequestComponents/Request";
 
 function RequestPage() {
 

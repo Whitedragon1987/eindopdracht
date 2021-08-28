@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from "./LogInButton.module.css"
-import {useHistory} from "react-router-dom";
-import {useFormContext} from "react-hook-form";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function LogInButton() {
+    const {login} = useContext(AuthContext);
 
     return(
-        <button className={styles['log-in-button']} >
+        <button
+            className={styles['log-in-button']}
+        >
             Log In!
         </button>
     )

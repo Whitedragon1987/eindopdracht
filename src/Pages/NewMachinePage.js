@@ -1,5 +1,5 @@
 import React from "react";
-import NewMachineForm from "../componenten/FormComponenten/MachineForm/NewMachineForm";
+import NewMachineForm from "../componenten/NewMachinePageComponents/NewMachineForm/NewMachineForm";
 
 
 function NewMachinePage() {

@@ -1,8 +1,0 @@
-.log-in-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    position: fixed;
-    top: 28%;
-    right: 43%;
-}

@@ -1,0 +1,14 @@
+.review{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+    height: 850px;
+    padding-top: 50px;
+}
+
+.input{
+    height: 200px;
+    width: 450px;
+}

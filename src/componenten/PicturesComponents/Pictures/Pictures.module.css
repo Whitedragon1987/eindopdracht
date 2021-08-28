@@ -1,0 +1,8 @@
+.picture-component{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+    height: 1000px;
+}

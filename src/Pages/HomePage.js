@@ -1,7 +1,7 @@
-import Logo from "../componenten/HomePageComponenten/LogoComponenten/Logo";
-import Projects from "../componenten/HomePageComponenten/ProjectComponenten/Projects";
-import Machines from "../componenten/HomePageComponenten/MachinesComponenten/Machines";
-import Jobs from "../componenten/HomePageComponenten/JobsComponenten/Jobs";
+import Logo from "../componenten/HomePageComponents/LogoComponents/Logo";
+import Projects from "../componenten/HomePageComponents/ProjectComponents/Projects";
+import MachinesPreview from "../componenten/HomePageComponents/MachinesComponents/MachinesPreview";
+import JobsPreview from "../componenten/HomePageComponents/JobsComponents/JobsPreview";
 
 function HomePage() {
 
@@ -9,8 +9,8 @@ function HomePage() {
         <>
             <Logo/>
             <Projects/>
-            <Machines/>
-            <Jobs/>
+            <MachinesPreview/>
+            <JobsPreview/>
         </>
 
     )

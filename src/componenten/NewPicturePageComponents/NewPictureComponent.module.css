@@ -1,0 +1,15 @@
+.pagewrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+    border: #efefef 1px solid;
+    width: 99%;
+    height: 1000px;
+}
+
+.button{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}

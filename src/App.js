@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Switch, Route,} from "react-router-dom";
 import './App.css';
 import RequestPage from "./Pages/RequestPage";
-import NewServicePage from "./Pages/NewServicePage";
+import NewJobPage from "./Pages/NewJobPage";
 import NewMachinePage from "./Pages/NewMachinePage";
 import NewEmployeePage from "./Pages/NewEmployeePage";
 import MachinesPage from "./Pages/MachinesPage";
@@ -11,18 +11,22 @@ import JobPage from "./Pages/JobPage";
 import JobsPage from "./Pages/JobsPage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
-import NavigatieBar from "./Header/NavigatieBar";
+import NavBar from "./Header/NavBar";
 import HomePage from "./Pages/HomePage";
-import ReviewPage from "./Pages/ReviewPage";
+import ContactPage from "./Pages/ContactPage";
 import QuotePage from "./Pages/QuotePage";
-
-
+import CustomerDataPage from "./Pages/CustomerDataPage";
+import ReviewPage from "./Pages/ReviewPage";
+import EmployeesPage from "./Pages/EmployeesPage";
+import EmployeePage from "./Pages/EmployeePage";
+import PicturesPage from "./Pages/PicturesPage";
+import NewPicturePage from "./Pages/NewPicturePage";
 
 function App() {
     return (
       <>
           <div className={"background"}>
-              <NavigatieBar/>
+              <NavBar/>
               <Switch >
                   <Route exact path="/">
                       <HomePage/>
@@ -44,36 +48,60 @@ function App() {
                       <MachinesPage/>
                   </Route>
 
-                  <Route exact path="/machine">
+                  <Route path="/machine/:machine_id">
                       <MachinePage/>
                   </Route>
 
-                  <Route exact path="/nieuwe-machine">
+                  <Route exact path="/new-machine">
                       <NewMachinePage/>
                   </Route>
 
-                  <Route exact path="/review">
-                      <ReviewPage/>
+                  <Route exact path="/contact">
+                      <ContactPage/>
                   </Route>
 
                   <Route exact path="/jobs">
                       <JobsPage/>
                   </Route>
 
-                  <Route exact path="/dienst">
+                  <Route exact path="/new-job">
+                      <NewJobPage/>
+                  </Route>
+
+                  <Route path="/jobs/:job_id">
                       <JobPage/>
                   </Route>
 
-                  <Route exact path="/nieuwe-dienst">
-                      <NewServicePage/>
+                  <Route exact path="/employees">
+                      <EmployeesPage/>
                   </Route>
 
-                  <Route exact path="/nieuwe-medewerker">
+                  <Route exact path="/pictures">
+                      <PicturesPage/>
+                  </Route>
+
+                  <Route exact path="/new-picture">
+                      <NewPicturePage/>
+                  </Route>
+
+                  <Route exact path="/new-employee">
                       <NewEmployeePage/>
+                  </Route>
+
+                  <Route path="/employees/:employee_id">
+                      <EmployeePage/>
                   </Route>
 
                   <Route exact path="/quote">
                       <QuotePage/>
+                  </Route>
+
+                  <Route exact path="/customer-data">
+                      <CustomerDataPage/>
+                  </Route>
+
+                  <Route exact path="/review">
+                      <ReviewPage/>
                   </Route>
               </Switch>
           </div>

@@ -1,15 +1,14 @@
 import React from "react";
 import NextButton from "../componenten/Buttons/NextButton/NextButton";
 import BackButton from "../componenten/Buttons/BackButton/BackButton";
-import JobComponent from "../componenten/JobComponenten/JobComponent/JobComponent";
-import ImageComponent from "../componenten/ImageComponent/ImageComponent";
+import JobComponent from "../componenten/JobPageComponents/JobComponent/JobComponent";
+import ImageComponent from "../componenten/ImageComponents/ImageComponent";
 
 function JobPage() {
 
     return(
         <div>
             <JobComponent/>
-            <ImageComponent/>
             <NextButton />
             <BackButton/>
         </div>

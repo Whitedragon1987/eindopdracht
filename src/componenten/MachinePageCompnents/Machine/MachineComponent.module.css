@@ -1,0 +1,17 @@
+.pagewrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+    height: 800px;
+}
+
+.machine-component {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    text-align: center;
+    row-gap: 20px;
+    margin-top: 30px;
+}

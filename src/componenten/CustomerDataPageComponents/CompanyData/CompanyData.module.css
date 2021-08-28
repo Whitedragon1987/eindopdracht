@@ -1,0 +1,15 @@
+.alternate-address{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    justify-items: center;
+    padding-top: 20px;
+}
+
+.name, .address, .zipcode, .city, .phone, .email{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+
+}
+

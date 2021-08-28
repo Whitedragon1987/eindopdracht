@@ -1,0 +1,11 @@
+.leaf{
+    height: 80px;
+    width: auto;
+    cursor: pointer;
+    transition: color 100ms;
+
+}
+
+input[type="radio"]{
+    display: none;
+}

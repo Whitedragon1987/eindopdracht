@@ -1,4 +1,4 @@
-import Quote from "../componenten/QuotePageComponenten/QuoteComponenten/Quote";
+import Quote from "../componenten/QuotePageComponents/QuoteComponents/Quote";
 
 function QuotePage() {
 
