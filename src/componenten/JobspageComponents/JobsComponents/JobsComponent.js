@@ -6,11 +6,12 @@ import {useHistory} from "react-router-dom";
 function JobsComponent({job_id}) {
 
     const [jobContent, setJobContent] = useState({});
+    const [urlContent, setUrlContent] = useState({});
+    const [pictureContent, setPictureContent] = useState({});
     const history = useHistory();
+    const token = localStorage.getItem("token");
 
     useEffect(()=> {
-        const token = localStorage.getItem("token");
-
         async function getJobContent() {
             try {
                 const result = await axios.get(`http://localhost:8080/jobs/${job_id}`,
@@ -28,6 +29,27 @@ function JobsComponent({job_id}) {
         getJobContent();
     }, [job_id]);
 
+    useEffect(()=> {
+        async function getPictureContent() {
+            try {
+                const pictureResult = await axios.get(`http://localhost:8080/pictures/${jobContent.picture.id}`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        responseType: "blob",
+                    });
+                console.log(pictureResult)
+                setPictureContent(pictureResult)
+                setUrlContent(pictureResult.config.url)
+            }catch (error) {
+                console.error(error);
+            }
+        }
+        getPictureContent();
+    }, [jobContent])
+
     function redirect() {
         history.push(`/jobs/${job_id}`)
     }
@@ -37,25 +59,44 @@ function JobsComponent({job_id}) {
 
             <div className={styles["component-wrapper"]} onClick={ () => redirect()}>
 
-                <div className={styles['data-wrapper']}>
+                <div className={styles["imagewrapper"]}>
 
-                    <h1>Naam :</h1>
-                    <p>{jobContent.name}</p>
 
-                    <h1>Omschrijving :</h1>
-                    <p>{jobContent.description}</p>
+                    {jobContent.picture != null ?
 
-                    <label htmlFor="addJob">
-                        Selecteer deze dienst voor uw verzoek.
-                    </label>
+                        <div className={styles["image"]}>
 
-                    <input
-                        type="checkbox"
-                        name="alternateAdress"
-                        id="addJob"
-                    />
+                            <img alt={jobContent.name} src={urlContent}/>
 
+                        </div>
+
+                        :
+
+                        <p>Geen afbeelding aanwezig!</p>
+
+                    }
+
+                   <div className={styles['data-wrapper']}>
+
+                        <h1>Naam :</h1>
+                        <p>{jobContent.name}</p>
+
+                        <h1>Omschrijving :</h1>
+                        <p>{jobContent.description}</p>
+
+                        <label htmlFor="addJob">
+                            Selecteer deze dienst voor uw verzoek.
+                        </label>
+
+                        <input
+                            type="checkbox"
+                            name="alternateAdress"
+                            id="addJob"
+                        />
+
+                    </div>
                 </div>
+
 
             </div>
 

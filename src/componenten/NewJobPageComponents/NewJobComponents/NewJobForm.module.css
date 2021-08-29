@@ -2,27 +2,18 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    position: fixed;
-    top: 28%;
-    left: 43%;
-    height: 300px;
+    height: 950px;
 }
 
 .new-job{
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    position: fixed;
-    top: 20%;
-    left: 45%;
 }
 
-.employee-needed{
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    position: fixed;
-    top: 58%;
-    left: 43%;
-}
+/*.employee-needed{*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr;*/
+/*    justify-items: center;*/
+/*}*/
 

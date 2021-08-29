@@ -75,6 +75,7 @@ function NewMachineForm() {
         } catch (error) {
             console.error(error);
         }
+        history.push("/machines")
     }
 
     return(

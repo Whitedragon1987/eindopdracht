@@ -10,4 +10,18 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
+    width: 100%;
+}
+
+.imagewrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
+.image{
+    display: grid;
+    width: 40%;
 }

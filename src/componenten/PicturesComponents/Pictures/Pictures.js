@@ -17,7 +17,7 @@ function Pictures() {
                     }
                 });
                 setPictures(result.data);
-                console.log(result.data)
+                // console.log(result.data)
             } catch (error) {
                 console.error(error);
             }
@@ -25,7 +25,7 @@ function Pictures() {
         fetchPictures();
     },[]);
 
-console.log(pictures)
+// console.log(pictures)
     return(
         <>
 

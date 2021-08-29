@@ -4,32 +4,55 @@ import styles from "./MachineComponent.module.css"
 import axios from "axios";
 import moment from "moment";
 import {useParams} from "react-router-dom";
+import {forkJoin} from "rxjs";
 
 function MachineComponent() {
     const {machine_id} = useParams();
 
     const [machineContent, setMachineContent] = useState({});
+    const [pictureContent, setPictureContent] = useState({});
+    const [urlContent, setUrlContent] = useState({});
+    const token = localStorage.getItem("token");
 
     useEffect(()=> {
-        const token = localStorage.getItem("token");
-
         async function getMachineContent() {
             try {
-                const result = await axios.get(`http://localhost:8080/machines/${machine_id}`,
+                const machineResult = await axios.get(`http://localhost:8080/machines/${machine_id}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
                         }
                     });
-                setMachineContent(result.data);
-                console.log(result.data);
+                setMachineContent(machineResult.data);
+
             } catch (error) {
                 console.error(error);
             }
         }
         getMachineContent();
     }, [machine_id]);
+
+    useEffect(()=> {
+        async function getPictureContent() {
+            try {
+                const pictureResult = await axios.get(`http://localhost:8080/pictures/${machineContent.picture.id}`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        responseType: "blob",
+                    });
+                console.log(pictureResult)
+                setPictureContent(pictureResult)
+                setUrlContent(pictureResult.config.url)
+            }catch (error) {
+                console.error(error);
+            }
+        }
+        getPictureContent();
+    }, [machineContent])
 
     return(
         <>
@@ -57,6 +80,19 @@ function MachineComponent() {
 
                     </div>
 
+                {machineContent.picture != null ?
+
+                    <div className={styles["image"]}>
+
+                        <img alt={machineContent.name} src={urlContent}/>
+
+                    </div>
+
+                    :
+
+                    <p>Geen afbeelding aanwezig!</p>
+
+                }
 
             </div>
 
