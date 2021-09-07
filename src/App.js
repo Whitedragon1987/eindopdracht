@@ -21,6 +21,7 @@ import EmployeesPage from "./Pages/EmployeesPage";
 import EmployeePage from "./Pages/EmployeePage";
 import PicturesPage from "./Pages/PicturesPage";
 import NewPicturePage from "./Pages/NewPicturePage";
+import ReviewsPage from "./Pages/ReviewsPage";
 
 function App() {
     return (
@@ -103,6 +104,11 @@ function App() {
                   <Route exact path="/review">
                       <ReviewPage/>
                   </Route>
+
+                  <Route exact path="/reviews">
+                      <ReviewsPage/>
+                  </Route>
+
               </Switch>
           </div>
       </>

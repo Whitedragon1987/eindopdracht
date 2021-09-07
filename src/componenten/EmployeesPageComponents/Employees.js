@@ -7,7 +7,7 @@ function Employees() {
 
     useEffect(()=> {
         const token = localStorage.getItem("token")
-        async function fetchMachines() {
+        async function fetchEmployees() {
             try {
                 const result = await axios.get(`http://localhost:8080/employees`, {
                     headers: {
@@ -20,7 +20,7 @@ function Employees() {
                 console.error(error);
             }
         }
-        fetchMachines();
+        fetchEmployees();
     },[]);
 
     return(

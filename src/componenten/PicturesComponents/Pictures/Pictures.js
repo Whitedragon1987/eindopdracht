@@ -34,7 +34,7 @@ function Pictures() {
                 <div className={styles["picture-component"]}>
 
                     { pictures.map((picture)=> {
-                        console.log(picture)
+                        // console.log(picture)
                         return (
                             <PicturesComponent
                                 name={picture.name}

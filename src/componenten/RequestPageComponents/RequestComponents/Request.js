@@ -1,10 +1,8 @@
 import RequestForm from "../RequestForm/RequestForm";
-import CustomerDataForm from "../../CustomerDataPageComponents/CustomerDataForm/CustomerDataForm";
 import SendButton from "../../Buttons/SendButton/SendButton";
 import {useFormContext} from "react-hook-form";
 import styles from "./Request.module.css";
 import React from "react";
-import CompanyData from "../../CustomerDataPageComponents/CompanyData/CompanyData";
 import AlternateAddress from "../AlternateAddress/AlternateAddress";
 import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/PrivateContent";
 
@@ -14,16 +12,12 @@ function Request() {
     const selectAltAddress = watch("altAddress");
     const data = {};
 
-    function onSubmit(data) {
-        // data.preventDefault();
-        // console.log(data);
-    }
+
+
     return(
         <>
             <div className= {styles['request-wrapper']}>
                 <div >
-
-                    <form  onSubmit={handleSubmit(onSubmit)}>
 
                         <div>
 
@@ -55,14 +49,14 @@ function Request() {
                                 <AlternateAddress/>
                             )}
 
-                            <SendButton type="submit" id="saveButton"/>
+
 
                         </div>
 
-                    </form>
-
                 </div>
+
             </div>
+
         </>
     )
 }

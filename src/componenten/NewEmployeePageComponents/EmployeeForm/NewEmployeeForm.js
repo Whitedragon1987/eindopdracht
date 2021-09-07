@@ -115,11 +115,9 @@ function NewEmployeeForm() {
                         {...register("ibanNumber", {required: {value: true, message: message }})}
                     />{errors.ibanNumber && <p>{errors.ibanNumber.message}</p>}
 
+                    <SaveButton type="submit"/>
+
                 </div>
-
-                <br/>
-
-                <SaveButton type="submit"/>
 
             </form>
 

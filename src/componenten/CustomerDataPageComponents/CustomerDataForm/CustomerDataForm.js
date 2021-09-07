@@ -21,7 +21,7 @@ function CustomerDataForm() {
         const token = localStorage.getItem("token");
         // console.log(userdata);
         try {
-            const result = await axios.post("http://localhost:8080/user-data",
+            const result = await axios.post("http://localhost:8080/userdata",
                 {
                 headers: {
                     "Content-Type": "application/json",
@@ -49,109 +49,100 @@ function CustomerDataForm() {
 
     return(
         <>
-            <div >
 
-                <form className={styles['customer-data-form']} onSubmit={handleSubmit(onSubmit)}>
+            <form className={styles['customer-data-form']} onSubmit={handleSubmit(onSubmit)}>
 
-                    <label htmlFor="user_firstname">
-                        voornaam :
-                    </label>
+                <label htmlFor="user_firstname">
+                    voornaam :
+                </label>
 
-                    <div className={styles["firstname"]}>
-                        <input
-                            id="user_firstname"
-                            {...register("user_firstname", {required: {value: true, message: message }})}
-                        />{errors.user_firstname && <p>{errors.user_firstname.message}</p>}
-                    </div>
-
-
-                    <label htmlFor="lastname">
-                        achternaam :
-                    </label>
-
-                    <div className={styles["lastname"]}>
-                        <input
-                            id="lastname"
-                            {...register("user_lastname", {required: {value: true, message: message }})}
-                        />{errors.user_lastname && <p>{errors.user_lastname.message}</p>}
-                    </div>
-
-                    <label htmlFor="address">
-                        adres :
-                    </label>
-
-                    <div className={styles["address"]}>
-                        <input
-                            id="address"
-                            {...register("user_address", {required: {value: true, message: message }})}
-                        />{errors.user_address && <p>{errors.user_address.message}</p>}
-                    </div>
+                <div className={styles["firstname"]}>
+                    <input
+                        id="user_firstname"
+                        {...register("user_firstname", {required: {value: true, message: message }})}
+                    />{errors.user_firstname && <p>{errors.user_firstname.message}</p>}
+                </div>
 
 
-                    <label htmlFor="zipcode">
-                        postcode :
-                    </label>
+                <label htmlFor="lastname">
+                    achternaam :
+                </label>
 
-                    <div className={styles["zipcode"]}>
-                        <input
-                            id="zipcode"
-                            {...register("user_zipcode", {required: {value: true, message: message }})}
-                        />{errors.user_zipcode && <p>{errors.user_zipcode.message}</p>}
-                    </div>
+                <div className={styles["lastname"]}>
+                    <input
+                        id="lastname"
+                        {...register("user_lastname", {required: {value: true, message: message }})}
+                    />{errors.user_lastname && <p>{errors.user_lastname.message}</p>}
+                </div>
 
+                <label htmlFor="address">
+                    adres :
+                </label>
 
-                    <label htmlFor="city">
-                        woonplaats :
-                    </label>
-
-                    <div className={styles["city"]}>
-                        <input
-                            id="city"
-                            {...register("user_city", {required: {value: true, message: message }})}
-                        />{errors.user_city && <p>{errors.user_city.message}</p>}
-                    </div>
-
-                    <label htmlFor="phonenumber">
-                        telefoonnummer :
-                    </label>
-
-                    <div className={styles["phone"]}>
-                        <input
-                            id="phonenumber"
-                            {...register("user_phonenumber", {required: {value: true, message: message }})}
-                        />{errors.user_phonenumber && <p>{errors.user_phonenumber.message}</p>}
-                    </div>
+                <div className={styles["address"]}>
+                    <input
+                        id="address"
+                        {...register("user_address", {required: {value: true, message: message }})}
+                    />{errors.user_address && <p>{errors.user_address.message}</p>}
+                </div>
 
 
-                    <label htmlFor="company">
-                        Bedrijf?
-                    </label>
+                <label htmlFor="zipcode">
+                    postcode :
+                </label>
 
-                    <div className={styles["checkbox"]}>
-                        <input
-                            type="checkbox"
-                            name="company"
-                            id="company"
-                            {...register("company")}
-                        />
-                    </div>
-
-                    <SaveButton/>
+                <div className={styles["zipcode"]}>
+                    <input
+                        id="zipcode"
+                        {...register("user_zipcode", {required: {value: true, message: message }})}
+                    />{errors.user_zipcode && <p>{errors.user_zipcode.message}</p>}
+                </div>
 
 
-                </form>
+                <label htmlFor="city">
+                    woonplaats :
+                </label>
 
-                <br/>
+                <div className={styles["city"]}>
+                    <input
+                        id="city"
+                        {...register("user_city", {required: {value: true, message: message }})}
+                    />{errors.user_city && <p>{errors.user_city.message}</p>}
+                </div>
 
-                {selectCompany && (
+                <label htmlFor="phonenumber">
+                    telefoonnummer :
+                </label>
 
-                    <CompanyData/>
+                <div className={styles["phone"]}>
+                    <input
+                        id="phonenumber"
+                        {...register("user_phonenumber", {required: {value: true, message: message }})}
+                    />{errors.user_phonenumber && <p>{errors.user_phonenumber.message}</p>}
+                </div>
 
-                )}
+                <label htmlFor="company">
+                    Bedrijf?
+                </label>
 
+                <div className={styles["checkbox"]}>
+                    <input
+                        type="checkbox"
+                        name="company"
+                        id="company"
+                        {...register("company")}
+                    />
+                </div>
 
+                <SaveButton/>
 
-            </div>
+            </form>
+
+            {selectCompany && (
+
+                <CompanyData/>
+
+            )}
 
         </>
     )

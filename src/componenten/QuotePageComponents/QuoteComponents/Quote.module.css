@@ -4,6 +4,7 @@
     justify-items: center;
     border: white 1px solid;
     width: 99%;
+    row-gap: 30px;
 }
 
 .preference-wrapper{

@@ -4,34 +4,83 @@ import SendButton from "../../Buttons/SendButton/SendButton";
 import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/PrivateContent";
 import React, {useContext, useState} from "react";
 import axios from "axios";
-import {useFormContext, Controller} from "react-hook-form";
+import { Controller, useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import {AuthContext} from "../../../Context/AuthContext";
 import DatePicker from "react-datepicker";
+import {forkJoin, map} from "rxjs";
 
 function Quote(){
-    const { register, formState: {errors}, handleSubmit, control } = useFormContext();
+    const { register, formState: {errors}, handleSubmit, control } = useForm();
+    const [file, setFile] = useState({});
+    const [url, setUrl] = useState({});
     const message = "Dit veld mag niet leeg blijven";
     const history = useHistory();
     const { user } = useContext(AuthContext);
-    // const [date, setDate] = useState(new Date());
+    const token = localStorage.getItem("token")
 
-    async function onSubmit() {
-        const token = localStorage.getItem("token")
+    async function onSubmit(quote) {
+        forkJoin([
+            uploadQuote(quote),
+            uploadPicture()
+        ]).pipe(map(([quote, picture, ]) => {
+            assignPictureToQuote(quote.data.id, picture.data.message)
+        })).subscribe();
 
-        try {
-            const result = await axios.get("http://localhost:8080/quotes/1001",
+    };
+
+    function uploadQuote(quote) {
+
+       return  axios.post("http://localhost:8080/quotes",
                 {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                });
-            console.log(result.data)
-        } catch (error){
+
+                    description: quote.description,
+                    date: quote.preference,
+                    userDataId: user.id,
+
+                })
+    };
+
+    function uploadPicture() {
+        let formData = new FormData();
+        formData.append("file", file);
+        return  axios.post("http://localhost:8080/pictures/upload", formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                },
+                file: formData
+            })
+
+    }
+
+    async function assignPictureToQuote(quote, pictureId){
+        try {
+            const result = await axios.post(`http://localhost:8080/quotes/quote/${quote}/picture`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+
+                    id: pictureId,
+
+                })
+
+        } catch (error) {
             console.error(error);
         }
     }
+
+
+
+
+
     return(
         <>
 
@@ -43,13 +92,13 @@ function Quote(){
 
                 <div className={styles['preference-wrapper']}>
 
-                    <label htmlFor="quote_preference">
+                    <label htmlFor="preference">
                         Voorkeursdatum :
                     </label>
 
                     <Controller
                         control={control}
-                        name= "quote_preference"
+                        name= "preference"
                         render={({field}) => (
                             <DatePicker
                                 placeholderText="Kies uw datum"
@@ -64,25 +113,19 @@ function Quote(){
 
                 </div>
 
-                <label htmlFor="quote-discription">
+                <label htmlFor="description">
                     Omschrijving :
                 </label>
 
-                <div>
-                    <textarea
-                        className={styles['input-description']}
-                        id="quote-discription"
-                        {...register("quote-description", {
-                            required: {value: true, message: "geef aub een beschrijving voor de offerte"}
-                        })}
-                    />
-                    {errors.quote_description && <p>{errors.quote_description.message}</p>}
-                </div>
+                <textarea
+                    id="description"
+                    {...register("description", {required: {value: true, message: message }})}
+                />{errors.description && <p>{errors.description.message}</p>}
 
 
-                {/*<Upload/>*/}
+                <Upload file={file} setFile={setFile} url={url} setUrl={setUrl}/>
 
-                <SendButton/>
+                <SendButton type="submit"/>
 
             </form>
 

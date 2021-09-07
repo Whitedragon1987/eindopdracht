@@ -23,7 +23,7 @@ function JobComponent() {
                         }
                     });
                 setJobContent(result.data);
-                console.log(result.data);
+                // console.log(result.data);
             } catch (error) {
                 console.error(error);
             }
@@ -42,7 +42,7 @@ function JobComponent() {
                         },
                         responseType: "blob",
                     });
-                console.log(pictureResult)
+                // console.log(pictureResult)
                 setPictureContent(pictureResult)
                 setUrlContent(pictureResult.config.url)
             }catch (error) {

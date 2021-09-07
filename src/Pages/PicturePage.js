@@ -1,5 +1,3 @@
-import NextButton from "../componenten/Buttons/NextButton/NextButton";
-import BackButton from "../componenten/Buttons/BackButton/BackButton";
 
 function PicturePage() {
 
@@ -9,10 +7,6 @@ function PicturePage() {
             <div>
 
                 <Picture/>
-
-                <NextButton />
-
-                <BackButton/>
 
             </div>
 

@@ -4,7 +4,7 @@
 }
 
 body{
-  background-color: black;
+  background-color: #000000;
   color: #EDF50B;
 }
 
@@ -58,4 +58,9 @@ input{
   color: #EDF50B;
   background-color: #000000;
   height: 30px;
+}
+
+img{
+  max-height: 250px;
+  max-width: 250px;
 }

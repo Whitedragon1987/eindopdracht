@@ -1,5 +1,3 @@
-import NextButton from "../componenten/Buttons/NextButton/NextButton";
-import BackButton from "../componenten/Buttons/BackButton/BackButton";
 import MachineComponent from "../componenten/MachinePageCompnents/Machine/MachineComponent";
 
 
@@ -12,11 +10,7 @@ function MachinePage() {
 
                     <MachineComponent/>
 
-                    <NextButton />
-
-                    <BackButton/>
-
-                </div>
+               </div>
 
         </>
 

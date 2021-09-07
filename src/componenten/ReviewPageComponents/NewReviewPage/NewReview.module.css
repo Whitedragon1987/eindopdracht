@@ -3,12 +3,24 @@
     grid-template-columns: 1fr;
     justify-items: center;
     border: white 1px solid;
+    row-gap: 40px;
     width: 99%;
-    height: 850px;
+    height: 1250px;
     padding-top: 50px;
 }
 
 .input{
     height: 200px;
     width: 450px;
+}
+.leaf{
+    height: 80px;
+    width: auto;
+    cursor: pointer;
+    transition: color 100ms;
+
+}
+
+input[type="radio"]{
+    display: none;
 }

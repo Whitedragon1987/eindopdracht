@@ -17,7 +17,7 @@ function PrivateContent() {
         const token = localStorage.getItem("token");
         async function getPrivateContent() {
             try {
-                const result = await axios.get(`http://localhost:8080/user-data/${user.id}`, {
+                const result = await axios.get(`http://localhost:8080/userdata/${user.id}`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,

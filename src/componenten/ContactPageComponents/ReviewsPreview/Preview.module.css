@@ -1,6 +1,6 @@
 .preview{
     display: grid;
-    grid-template-columns: 20% 50% 30%;
+    grid-template-columns: 20% 60% 20%;
     justify-items: center;
     align-items: center;
     border: white 1px solid;

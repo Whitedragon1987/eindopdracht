@@ -1,73 +1,56 @@
-import Preview from "../componenten/ContactPageComponents/ReviewsPreview/Preview";
-import {NavLink} from "react-router-dom";
-import styles from "../componenten/ContactPageComponents/ContactPage.module.css"
-import japanse from "../assets/projects/japanse tuin.jpg"
-import Logo from "../componenten/HomePageComponents/LogoComponents/Logo";
+import ContactPageComponent from "../componenten/ContactPageComponents/ContactPageComponent";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 function ContactPage() {
+    const [reviews, setReviews] = useState([]);
+    const [pictures, setPictures] = useState([]);
+    const token = localStorage.getItem("token")
+
+    useEffect(() => {
+
+        async function fetchReviews() {
+            try {
+                const result = await axios.get(`http://localhost:8080/reviews`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setReviews(result.data);
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+
+        fetchReviews();
+
+    }, [token]);
+
+    useEffect(() => {
+        async function fetchPictures() {
+            try {
+                const result = await axios.get(`http://localhost:8080/pictures`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setPictures(result.data);
+                // console.log(result.data)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchPictures();
+    }, [token]);
 
     return(
         <>
-            <div>
-                <div className={styles["header"]}>
 
-                    <h1>Reviews</h1>
-
-                    <NavLink to="/review" exact activeClassName="active-link">schrijf uw review</NavLink>
-
-                </div>
-
-
-                <Preview
-                    foto={japanse}
-                    title="japanse tuin"
-                    naam="K. Bovenkamer"
-                    omschrijving="Zeer tevreden over het geleverde eindresultaat"
-                    rating={4}
-                    />
-
-                <Preview
-                    foto={japanse}
-                    title="japanse tuin"
-                    naam="K. Bovenkamer"
-                    omschrijving="Zeer tevreden over het geleverde eindresultaat"
-                    rating={2}
-                />
-
-                <Preview
-                    foto={japanse}
-                    title="japanse tuin"
-                    naam="K. Bovenkamer"
-                    omschrijving="Zeer tevreden over het geleverde eindresultaat"
-                    rating={3}
-                />
-
-            </div>
-
-            <div className={styles["image-wrapper"]}>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-                <img src={japanse} alt="foto"/>
-
-            </div>
-
-            <div className={styles["footer"]}>
-                <Logo/>
-
-            </div>
+            <ContactPageComponent reviews={reviews} setReviews={setReviews} pictures={pictures} setPictures={setPictures}/>
 
         </>
     )

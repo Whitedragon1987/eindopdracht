@@ -44,7 +44,7 @@ function MachineComponent() {
                         },
                         responseType: "blob",
                     });
-                console.log(pictureResult)
+                // console.log(pictureResult)
                 setPictureContent(pictureResult)
                 setUrlContent(pictureResult.config.url)
             }catch (error) {

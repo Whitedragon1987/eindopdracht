@@ -1,7 +1,7 @@
 import Upload from "../Upload/Upload";
 import styles from "./NewPictureComponent.module.css"
 import {useForm} from "react-hook-form";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {PictureContext} from "../../Context/PictureContext";
 import axios from "axios";
 import SaveButton from "../Buttons/SaveButton/SaveButton";
@@ -9,9 +9,10 @@ import {useHistory} from "react-router-dom";
 
 function NewPictureComponent() {
     const { handleSubmit } = useForm();
-    const { file, setFile } = useContext(PictureContext);
     const token = localStorage.getItem("token");
     const history = useHistory();
+    const [file, setFile] = useState({});
+    const [url, setUrl] = useState({});
 
     async function onSubmit() {
         let formData = new FormData();
@@ -40,7 +41,9 @@ function NewPictureComponent() {
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <Upload/>
+                <Upload
+                    file={file} setFile={setFile} url={url} setUrl={setUrl}
+                />
 
                 <div className={styles["button"]}>
 

@@ -1,5 +1,3 @@
-import NextButton from "../componenten/Buttons/NextButton/NextButton";
-import BackButton from "../componenten/Buttons/BackButton/BackButton";
 import EmployeeComponent from "../componenten/EmployeePageComponents/EmployeeComponent/EmployeeComponent";
 
 
@@ -11,10 +9,6 @@ function EmployeePage() {
             <div>
 
                 <EmployeeComponent/>
-
-                <NextButton />
-
-                <BackButton/>
 
             </div>
 

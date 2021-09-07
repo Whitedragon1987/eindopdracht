@@ -21,7 +21,7 @@ function EmployeeComponent() {
                         }
                     });
                 setEmployeeContent(result.data);
-                console.log(result.data);
+                // console.log(result.data);
             } catch (error) {
                 console.error(error);
             }

@@ -1,28 +1,29 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "./NewJobForm.module.css";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
-import {useFormContext} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
-import {PictureContext} from "../../../Context/PictureContext";
 import {useHistory} from "react-router-dom";
 import {forkJoin, map} from "rxjs";
 import Upload from "../../Upload/Upload";
 
+
 function NewJobForm() {
-    const { register, watch, formState: {errors}, handleSubmit } = useFormContext();
-    const selectEmployeeNeeded = watch("employeesNeeded");
+    const { register, watch, formState: {errors}, handleSubmit, control } = useForm();
     const message = "dit veld mag niet leeg blijven"
-    const { file } = useContext(PictureContext);
     const history = useHistory();
     const token = localStorage.getItem("token");
+    const [file, setFile] = useState({});
+    const [url, setUrl] = useState({});
 
     async function onSubmit(job) {
-        forkJoin([
+
+       forkJoin([
             uploadJob(job),
             uploadPicture()
         ]).pipe(map(([job, picture]) => {
             assignPictureToJob(job.data.id, picture.data.message)
-        })).subscribe();
+        })).subscribe()
     };
 
     function uploadJob(job) {
@@ -35,7 +36,7 @@ function NewJobForm() {
 
                     name: job.job_name,
                     description: job.job_description,
-
+                    employeeNeeded: job.employeesNeeded,
                 })
 
     };
@@ -56,7 +57,7 @@ function NewJobForm() {
 
     async function assignPictureToJob(jobId, pictureId){
         try {
-            const result = await axios.put(`http://localhost:8080/jobs/job/${jobId}/picture`,
+            const result = await axios.post(`http://localhost:8080/jobs/job/${jobId}/picture`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -70,8 +71,10 @@ function NewJobForm() {
         } catch (error) {
             console.error(error);
         }
+
         history.push("/jobs")
     }
+
 
     return (
         <div id="pageWrapper">
@@ -109,23 +112,7 @@ function NewJobForm() {
                         {...register("employeesNeeded")}
                     />
 
-
-                {selectEmployeeNeeded &&(
-                    <div className={styles['employee-needed']} id="employeeWrapper">
-
-                        <label htmlFor="employeeName">
-                            Medewerker :
-                        </label>
-
-                        <input
-                            type="text"
-                            id="employeeName"
-                            {...register("employeename")}
-                            />
-
-                    </div>)}
-
-                <Upload/>
+                <Upload file={file} setFile={setFile} url={url} setUrl={setUrl}/>
 
                <SaveButton type="submit"/>
 

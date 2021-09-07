@@ -14,9 +14,10 @@ import {forkJoin, map} from "rxjs";
 function NewMachineForm() {
     const { handleSubmit, formState: { errors }, register, control} = useForm();
     const message = "Dit veld mag niet leeg blijven"
-    const { file } = useContext(PictureContext);
     const history = useHistory();
     const token = localStorage.getItem("token");
+    const [file, setFile] = useState({});
+    const [url, setUrl] = useState({});
 
     async function onSubmit(machine) {
        forkJoin([
@@ -175,7 +176,7 @@ function NewMachineForm() {
                         )}
                     />
 
-                <Upload/>
+                <Upload file={file} setFile={setFile} url={url} setUrl={setUrl}/>
 
                 <SaveButton type="submit"/>
 

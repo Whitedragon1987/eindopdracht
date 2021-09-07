@@ -70,6 +70,10 @@ function NavBar() {
                         <NavLink to="/new-machine" exact activeClassName="active-link">Machine toevoegen</NavLink>
                     </li>
 
+                    <li>
+                        <NavLink to="/reviews"  exact activeClassName="active-link">Reviews</NavLink>
+                    </li>
+
                 </ul>
             </div>
         </nav>

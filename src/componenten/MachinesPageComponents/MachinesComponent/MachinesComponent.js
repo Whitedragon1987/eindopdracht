@@ -40,7 +40,7 @@ function MachinesComponent({machine_id}) {
                         },
                         responseType: "blob",
                     });
-                console.log(pictureResult)
+                // console.log(pictureResult)
                 setPictureContent(pictureResult)
                 setUrlContent(pictureResult.config.url)
             }catch (error) {
@@ -53,7 +53,7 @@ function MachinesComponent({machine_id}) {
     function redirect() {
         history.push(`/machine/${machine_id}`)
     }
-    console.log(machineContent)
+    // console.log(machineContent)
 
     return(
         <>

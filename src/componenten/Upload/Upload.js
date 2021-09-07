@@ -1,11 +1,12 @@
 import styles from "./Upload.module.css"
 import {PictureContext} from "../../Context/PictureContext";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import axios from "axios";
 
-function Upload() {
+function Upload({file, setFile, url, setUrl}) {
 
-    const { file, setFile, url, setUrl } = useContext(PictureContext);
+
+    // const { file, setFile, url, setUrl } = useContext(PictureContext);
 
 
 
