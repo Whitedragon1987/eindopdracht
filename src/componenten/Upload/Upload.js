@@ -50,7 +50,9 @@ function Upload({file, setFile, url, setUrl}) {
 
                 {url !== null ?
 
-                    <img src={url} alt="image" />:
+                    <img src={url} alt="image" />
+
+                    :
 
                     <div className={styles["previewText"]}> Selecteer a.u.b. een afbeelding</div>}
 
