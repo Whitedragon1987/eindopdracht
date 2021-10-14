@@ -5,27 +5,41 @@ import axios from "axios";
 
 function Machines() {
     const [machines, setMachines] = useState(null);
+    const token = localStorage.getItem("token")
 
     useEffect(()=> {
-        const token = localStorage.getItem("token")
+
         async function fetchMachines() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/machines`, {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
-                    }
-                });
-                setMachines(result.data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchMachines();
-    },[]);
 
-// console.log(machines)
+                    }
+
+                });
+
+                setMachines(result.data);
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+        fetchMachines();
+
+        },[]);
+
     return(
+
         <>
 
             {machines?
@@ -38,8 +52,7 @@ function Machines() {
 
                             <MachinesComponent
                                 key={machine.id}
-                                machine_id={machine.id}
-                            />);
+                                machine_id={machine.id} />);
 
                     })}
 
@@ -47,7 +60,7 @@ function Machines() {
 
             :
 
-                <h1>loading...</h1>
+                <h1> loading... </h1>
 
         }
 
@@ -56,4 +69,5 @@ function Machines() {
     )
 
 }
+
 export default Machines;

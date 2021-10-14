@@ -3,9 +3,13 @@ import {NavLink} from "react-router-dom";
 function NavBar() {
 
     return(
+
         <nav className="nav-container">
+
             <div>
+
                 <ul>
+
                     <li>
                         <NavLink to="/" exact activeClassName="active-link">Home</NavLink>
                     </li>
@@ -75,9 +79,13 @@ function NavBar() {
                     </li>
 
                 </ul>
+
             </div>
+
         </nav>
+
     )
+
 }
 
 export default NavBar;

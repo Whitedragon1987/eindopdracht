@@ -26,9 +26,14 @@ import ReviewsPage from "./Pages/ReviewsPage";
 function App() {
     return (
       <>
-          <div className={"background"}>
+
+          <div
+              className={"background"} >
+
               <NavBar/>
+
               <Switch >
+
                   <Route exact path="/">
                       <HomePage/>
                   </Route>
@@ -110,9 +115,13 @@ function App() {
                   </Route>
 
               </Switch>
+
           </div>
+
       </>
+
     );
+
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import {Controller, useForm} from "react-hook-form";
 import styles from "./Request.module.css";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import AlternateAddress from "../AlternateAddress/AlternateAddress";
 import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/PrivateContent";
 import axios from "axios";
@@ -14,119 +14,160 @@ import SendButton from "../../Buttons/SendButton/SendButton";
 import createJobObjects from "../../../helpers/createJobObjects";
 import createMachineObjects from "../../../helpers/createMachineObjects";
 import {AuthContext} from "../../../Context/AuthContext";
+import createMachineIdList from "../../../helpers/createMachineIdList";
+
 
 function Request() {
 
     const { watch, register, control, handleSubmit, formState: {errors} } = useForm();
     const selectAltAddress = watch("altAddress");
-    const data = {};
-    const [jobs, setJobs] = useState([]);
     const [jobOptions, setJobOptions] = useState();
-    const [machines, setMachines] = useState([]);
     const [machineOptions, setMachineOptions] = useState();
-    const [machinesChoice, setMachinesChoice] = useState({});
-    const [jobsChoice, setJobsChoice] = useState({});
-    const token = localStorage.getItem("token")
+    const [machinesChoice, setMachinesChoice] = useState([]);
+    const [jobsChoice, setJobsChoice] = useState([]);
+    const token = localStorage.getItem("token");
     const {user} = useContext(AuthContext);
+    const [machineIdList, setMachineIdList] = useState();
+
 
     useEffect(()=> {
+
         async function fetchJobs() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/jobs`, {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     }
+
                 });
-                setJobs(result.data);
+
                 const jobOptions = createJobObjects(result.data);
-                // console.log(result.data);
+
                 setJobOptions(jobOptions);
+
             } catch (error) {
+
                 console.error(error);
+
             }
+
         }
 
         fetchJobs();
-
-        console.log(jobOptions)
 
     },[]);
 
     useEffect(()=> {
 
         async function fetchMachines() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/machines`, {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     }
+
                 });
-                setMachines(result.data);
+
                 const machineOptions = createMachineObjects(result.data);
-                // console.log(result.data);
+
                 setMachineOptions(machineOptions);
+
             } catch (error) {
+
                 console.error(error);
+
             }
+
         }
 
         fetchMachines();
-        console.log(machineOptions)
 
     },[]);
 
-    // console.log(jobsChoice)
-    // console.log(machinesChoice)
+
+
 
     async function onSubmit(data) {
+        if (machinesChoice != null) {
+
+            const machineIdList =  createMachineIdList(machinesChoice);
+            setMachineIdList(machineIdList);
+        }
         try {
+
             const restult = await axios.post("http://localhost:8080/requests",
+
                 {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     },
+
                     userDataId: user.id,
                     requestStartTime: data.start_date,
                     requestEndTime: data.end_date,
-                    jobId: 1001,
-                    machineId:1001,
+                    jobIdList: jobsChoice,
+                    machineIdList:machinesChoice,
+
                 })
 
         } catch (error) {
+
             console.error(error);
+
         }
-        console.log(data)
+
     }
 
 
+
+
     return(
+
         <>
-            <div className= {styles['request-wrapper']}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div
+                className= {styles['request-wrapper']} >
+
+                <form
+                    onSubmit={handleSubmit(onSubmit)} >
 
                         <div>
 
-                            <h2>Wat kunnen wij betekenen voor u?</h2>
+                            <h2> Wat kunnen wij betekenen voor u? </h2>
 
-                            <div className={styles['selector-wrapper']}>
+                            <div
+                                className={styles['selector-wrapper']} >
 
-                                <div className={styles["machinewrapper"]}>
+                                <div
+                                    className={styles["machinewrapper"]} >
+
                                     <Selector
                                         title="Machines"
-                                        image={kraan}
-                                    />
+                                        image={kraan} />
 
                                     {machineOptions?
 
                                         <Multiselect
                                             options={machineOptions}
                                             displayValue="value"
-                                            onSelect={(machinesChoice)=>{setMachinesChoice(machinesChoice)}}
+                                            onSelect={(machinesChoice)=> {setMachinesChoice(machinesChoice)}}
                                             onRemove={(machinesChoice)=> {setMachinesChoice(machinesChoice)}}
-                                            onSearch={function noRefCheck(){}}
                                             showCheckbox
                                             closeOnSelect={false}
                                             placeholder="machines"
@@ -142,8 +183,7 @@ function Request() {
                                                     border: '1px solid #EDF50B',
                                                     width: `260px`
                                                 }
-                                            }}
-                                        />
+                                            }} />
 
                                         :
 
@@ -158,11 +198,12 @@ function Request() {
                                     image={offerte}
                                 />
 
-                                <div className={styles["jobwrapper"]}>
+                                <div
+                                    className={styles["jobwrapper"]} >
+
                                     <Selector
                                         title="Diensten"
-                                        image={vrachtwagen}
-                                    />
+                                        image={vrachtwagen} />
 
                                     {jobOptions?
 
@@ -171,7 +212,6 @@ function Request() {
                                             displayValue="value"
                                             onSelect={(jobsChoice)=> {setJobsChoice(jobsChoice)}}
                                             onRemove={(jobsChoice)=> {setJobsChoice(jobsChoice)}}
-                                            onSearch={function noRefCheck(){}}
                                             closeOnSelect={false}
                                             showCheckbox
                                             placeholder="diensten"
@@ -187,13 +227,11 @@ function Request() {
                                                     border: '1px solid #EDF50B',
                                                     width: `260px`
                                                 }
-                                            }}
-
-                                        />
+                                            }} />
 
                                         :
 
-                                        <p>loading options...</p>
+                                        <p> loading options... </p>
 
                                     }
 
@@ -201,22 +239,24 @@ function Request() {
 
                             </div>
 
-                            <h2>Wanneer zou u dit het liefste willen?</h2>
+                            <h2> Wanneer zou u dit het liefste willen? </h2>
 
-                            <div className={styles['preference-wrapper']}>
+                            <div
+                                className={styles['preference-wrapper']} >
 
                                 <Controller
                                     control={control}
                                     name= "start_date"
                                     render={({field}) => (
+
                                         <DatePicker
                                             placeholderText="Kies uw datum"
                                             onChange={(date)=> field.onChange(date)}
                                             selected={field.value}
                                             dateFormat = "dd/ MM/ yyyy"
                                             minDate={new Date()}
-                                            required
-                                        />
+                                            required />
+
                                     )}
                                 />
 
@@ -224,28 +264,36 @@ function Request() {
                                     control={control}
                                     name= "end_date"
                                     render={({field}) => (
-                                        <DatePicker
+
+                                       <DatePicker
                                             placeholderText="Kies uw datum"
                                             onChange={(date)=> field.onChange(date)}
                                             selected={field.value}
                                             dateFormat = "dd/ MM/ yyyy"
                                             minDate={new Date()}
-                                            required
-                                        />
+                                            required />
+
                                     )}
                                 />
 
                             </div>
 
-                            <SendButton type="submit" id="saveButton"/>
+                            <SendButton
+                                type="submit"
+                                id="saveButton" />
 
-                            <h2>Waar en voor wie kunnen wij dit betekenen?</h2>
+                            <h2> Waar en voor wie kunnen wij dit betekenen?  </h2>
 
                             <PrivateContent/>
 
-                            <div className={styles['alt-address']}>
-                                <label htmlFor="altAddress">
-                                Alternatief adres?
+                            <div
+                                className={styles['alt-address']} >
+
+                                <label
+                                    htmlFor="altAddress" >
+
+                                    Alternatief adres?
+
                                 </label>
 
                                 <input
@@ -258,18 +306,22 @@ function Request() {
                             </div>
 
                             {selectAltAddress&& (
-                                <AlternateAddress register={register} errors={errors}/>
+
+                                <AlternateAddress
+                                    register={register}
+                                    errors={errors} />
                             )}
 
                         </div>
 
                 </form>
 
-
             </div>
 
         </>
+
     )
+
 }
 
 export default Request;

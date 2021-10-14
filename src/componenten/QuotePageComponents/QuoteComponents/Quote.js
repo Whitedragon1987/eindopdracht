@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import {forkJoin, map} from "rxjs";
 
 function Quote(){
+
     const { register, formState: {errors}, handleSubmit, control } = useForm();
     const [file, setFile] = useState({});
     const [url, setUrl] = useState({});
@@ -20,11 +21,16 @@ function Quote(){
     const token = localStorage.getItem("token")
 
     async function onSubmit(quote) {
+
         forkJoin([
+
             uploadQuote(quote),
             uploadPicture()
+
         ]).pipe(map(([quote, picture, ]) => {
+
             assignPictureToQuote(quote.data.id, picture.data.message)
+
         })).subscribe();
 
     };
@@ -32,10 +38,14 @@ function Quote(){
     function uploadQuote(quote) {
 
        return  axios.post("http://localhost:8080/quotes",
+
                 {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     },
 
                     description: quote.description,
@@ -43,29 +53,45 @@ function Quote(){
                     userDataId: user.id,
 
                 })
+
     };
 
     function uploadPicture() {
+
         let formData = new FormData();
+
         formData.append("file", file);
+
         return  axios.post("http://localhost:8080/pictures/upload", formData,
+
             {
+
                 headers: {
+
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
+
                 },
+
                 file: formData
+
             })
 
     }
 
     async function assignPictureToQuote(quote, pictureId){
+
         try {
+
             const result = await axios.post(`http://localhost:8080/quotes/quote/${quote}/picture`,
+
                 {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     },
 
                     id: pictureId,
@@ -73,64 +99,86 @@ function Quote(){
                 })
 
         } catch (error) {
+
             console.error(error);
+
         }
+
     }
 
-
-
-
-
     return(
+
         <>
 
-            <form className={styles['quote-wrapper']} onSubmit={handleSubmit(onSubmit)}>
+            <form
+                className={styles['quote-wrapper']}
+                onSubmit={handleSubmit(onSubmit)} >
 
-                <h1>Voor wie mogen wij een offerte aanbieden?</h1>
+                <h1> Voor wie mogen wij een offerte aanbieden? </h1>
 
                 <PrivateContent/>
 
-                <div className={styles['preference-wrapper']}>
+                <div
+                    className={styles['preference-wrapper']} >
 
-                    <label htmlFor="preference">
+                    <label
+                        htmlFor="preference" >
+
                         Voorkeursdatum :
+
                     </label>
 
                     <Controller
                         control={control}
                         name= "preference"
                         render={({field}) => (
+
                             <DatePicker
+
                                 placeholderText="Kies uw datum"
                                 onChange={(date)=> field.onChange(date)}
                                 selected={field.value}
                                 dateFormat = "dd/ MM/ yyyy"
                                 minDate={new Date()}
                                 required
+
                             />
+
                         )}
+
                         />
 
                 </div>
 
-                <label htmlFor="description">
+                <label
+                    htmlFor="description" >
+
                     Omschrijving :
+
                 </label>
 
                 <textarea
                     id="description"
-                    {...register("description", {required: {value: true, message: message }})}
-                />{errors.description && <p>{errors.description.message}</p>}
+                    {...register("description",
+                        {required: {value: true, message: message }})} />
+                {errors.description && <p> {errors.description.message} </p>}
 
 
-                <Upload file={file} setFile={setFile} url={url} setUrl={setUrl}/>
+                <Upload
+                    file={file}
+                    setFile={setFile}
+                    url={url}
+                    setUrl={setUrl} />
 
-                <SendButton type="submit"/>
+                <SendButton
+                    type="submit" />
 
             </form>
 
         </>
+
     )
+
 }
 
 export default Quote;

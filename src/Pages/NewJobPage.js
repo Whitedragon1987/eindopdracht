@@ -3,13 +3,16 @@ import NewJobForm from "../componenten/NewJobPageComponents/NewJobComponents/New
 
 function NewJobPage() {
 
-
     return (
+
         <>
+
             <NewJobForm/>
+
         </>
 
     )
+
 }
 
 export default NewJobPage;

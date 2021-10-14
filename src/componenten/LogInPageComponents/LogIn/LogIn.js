@@ -13,38 +13,50 @@ function LogIn() {
     const {login} = useContext(AuthContext);
 
     async function onSubmit(data) {
-        // console.log(data);
 
         try {
+
             const result = await axios.post("http://localhost:8080/authenticate", data);
-            // console.log(data);
+
             login(result.data.jwt);
+
         } catch (error){
+
             console.error(error);
+
         }
+
     }
 
     return(
+
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={styles['login-wrapper']}>
-                    <h1>Inloggen bij Invisible Gardening</h1>
+
+            <form
+                onSubmit={handleSubmit(onSubmit)} >
+
+                <div
+                    className={styles['login-wrapper']} >
+
+                    <h1> Inloggen bij Invisible Gardening </h1>
 
                     <LoginForm/>
 
                     <LogInButton
-                        onClick={login}
-                    />
+                        onClick={login} />
 
                     <LogOutButton/>
 
                     <SignUpLink/>
 
                 </div>
+
             </form>
 
         </>
+
     )
+
 }
 
 export default LogIn;

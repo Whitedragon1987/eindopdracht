@@ -1,14 +1,7 @@
 import styles from "./Upload.module.css"
-import {PictureContext} from "../../Context/PictureContext";
-import {useContext, useState} from "react";
-import axios from "axios";
+
 
 function Upload({file, setFile, url, setUrl}) {
-
-
-    // const { file, setFile, url, setUrl } = useContext(PictureContext);
-
-
 
     const handleImageChange = (e) => {
 
@@ -29,37 +22,39 @@ function Upload({file, setFile, url, setUrl}) {
     }
     
     return(
-        <div className={styles["previewComponent"]}>
 
-            {/*<form onSubmit={handleSubmit()} className={styles["wrapper"]}>*/}
+        <div
+            className={styles["previewComponent"]} >
 
-                <input className={styles["fileInput"]}
-                       type="file"
-                       onChange={handleImageChange}
-                />
+            <input
+                className={styles["fileInput"]}
+                type="file"
+                onChange={handleImageChange} />
 
-                {/*<button className={styles["submitButton"]}*/}
-                {/*        type="submit"*/}
-                {/*        onClick={handleSubmit()}>*/}
-                {/*    Upload Image*/}
-                {/*</button>*/}
-
-            {/*</form>*/}
-
-            <div className={styles["imgPreview"]}>
+            <div
+                className={styles["imgPreview"]} >
 
                 {url !== null ?
 
-                    <img src={url} alt="image" />
+                    <img
+                        src={url}
+                        alt="image" />
 
                     :
 
-                    <div className={styles["previewText"]}> Selecteer a.u.b. een afbeelding</div>}
+                    <div
+                        className={styles["previewText"]} >
+
+                        Selecteer a.u.b. een afbeelding
+
+                    </div>}
 
             </div>
 
         </div>
+
     )
+
 }
 
 export default Upload;

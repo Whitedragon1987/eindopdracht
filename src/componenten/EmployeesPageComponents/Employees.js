@@ -4,31 +4,47 @@ import EmployeesComponent from "./EmployeesComponents/EmployeesComponent";
 
 function Employees() {
     const [employees, setEmployees] = useState(null);
+    const token = localStorage.getItem("token")
 
     useEffect(()=> {
-        const token = localStorage.getItem("token")
+
         async function fetchEmployees() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/employees`, {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     }
+
                 });
+
                 setEmployees(result.data);
+
             } catch (error) {
+
                 console.error(error);
+
             }
+
         }
+
         fetchEmployees();
+
     },[]);
 
     return(
+
         <>
 
             {employees?
 
-                <div className="machine-component">
+                <div
+                    className="machine-component" >
 
                     { employees.map((employee)=> {
 
@@ -36,8 +52,7 @@ function Employees() {
 
                             <EmployeesComponent
                                 key={employee.id}
-                                employee_id={employee.id}
-                            />);
+                                employee_id={employee.id} />);
 
                     })}
 
@@ -45,7 +60,7 @@ function Employees() {
 
                 :
 
-                <h1>loading...</h1>
+                <h1> loading... </h1>
 
             }
 
@@ -54,4 +69,5 @@ function Employees() {
     )
 
 }
+
 export default Employees;

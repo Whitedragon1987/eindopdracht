@@ -4,10 +4,15 @@ import JobComponent from "../componenten/JobPageComponents/JobComponent/JobCompo
 function JobPage() {
 
     return(
+
         <div>
+
             <JobComponent/>
+
        </div>
+
     )
 
 }
+
 export default JobPage;

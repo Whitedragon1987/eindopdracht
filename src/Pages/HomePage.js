@@ -6,14 +6,21 @@ import JobsPreview from "../componenten/HomePageComponents/JobsComponents/JobsPr
 function HomePage() {
 
     return(
+
         <>
+
             <Logo/>
+
             <Projects/>
+
             <MachinesPreview/>
+
             <JobsPreview/>
+
         </>
 
     )
+
 }
 
 export default HomePage;

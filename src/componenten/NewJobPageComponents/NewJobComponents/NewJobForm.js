@@ -7,7 +7,6 @@ import {useHistory} from "react-router-dom";
 import {forkJoin, map} from "rxjs";
 import Upload from "../../Upload/Upload";
 
-
 function NewJobForm() {
     const { register, watch, formState: {errors}, handleSubmit, control } = useForm();
     const message = "dit veld mag niet leeg blijven"
@@ -19,49 +18,75 @@ function NewJobForm() {
     async function onSubmit(job) {
 
        forkJoin([
+
             uploadJob(job),
             uploadPicture()
+
         ]).pipe(map(([job, picture]) => {
+
             assignPictureToJob(job.data.id, picture.data.message)
+
         })).subscribe()
+
     };
 
     function uploadJob(job) {
+
        return axios.post("http://localhost:8080/jobs",
+
                 {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     },
 
                     name: job.job_name,
                     description: job.job_description,
                     employeeNeeded: job.employeesNeeded,
+
                 })
 
     };
 
     function uploadPicture() {
+
         let formData = new FormData();
+
         formData.append("file", file);
+
         return  axios.post("http://localhost:8080/pictures/upload", formData,
+
             {
+
                 headers: {
+
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
+
                 },
+
                 file: formData
+
             })
 
     }
 
     async function assignPictureToJob(jobId, pictureId){
+
         try {
+
             const result = await axios.post(`http://localhost:8080/jobs/job/${jobId}/picture`,
-                {
+
+               {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     },
 
                     id: pictureId,
@@ -69,56 +94,87 @@ function NewJobForm() {
                 })
 
         } catch (error) {
+
             console.error(error);
+
         }
 
         history.push("/jobs")
+
     }
 
 
     return (
-        <div id="pageWrapper">
 
-            <form onSubmit={handleSubmit(onSubmit)} className={styles['new-job-form']}>
+        <div
+            id="pageWrapper" >
 
-                <h2 className={styles['new-job']}>Nieuwe Karwei</h2>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className={styles['new-job-form']} >
 
-                    <label htmlFor="name">
+                <h2
+                    className={styles['new-job']} >
+
+                    Nieuwe Karwei
+
+                </h2>
+
+                    <label
+                        htmlFor="name" >
+
                         Klusnaam :
+
                     </label>
 
-                    <input
-                        id="name"
-                        {...register("job_name", {required: {value: true, message: message }})}
-                    />{errors.job_name && <p>{errors.job_name.message}</p>}
+                <input
+                    id="name"
+                    {...register("job_name",
+                        {required: {value: true, message: message }})} />
+                {errors.job_name && <p> {errors.job_name.message} </p>}
 
-                    <label htmlFor="description">
-                        Omschrijving :
-                    </label>
+                <label
+                    htmlFor="description" >
 
-                    <input
-                        id="description"
-                        {...register("job_description", {required: {value: true, message: message }})}
-                    />{errors.job_description && <p>{errors.job_description.message}</p>}
+                    Omschrijving :
 
-                    <label htmlFor="employeesNeeded">
-                        Medewerker(s) nodig?
-                    </label>
+                </label>
 
-                    <input
-                        type="checkbox"
-                        name="employeesNeeded"
-                        id="employeesNeeded"
-                        {...register("employeesNeeded")}
-                    />
+                <input
+                    id="description"
+                    {...register("job_description",
+                        {required: {value: true, message: message }})} />
+                {errors.job_description && <p> {errors.job_description.message} </p>}
 
-                <Upload file={file} setFile={setFile} url={url} setUrl={setUrl}/>
+                <label
+                    htmlFor="employeesNeeded" >
 
-               <SaveButton type="submit"/>
+                    Medewerker(s) nodig?
+
+                </label>
+
+                <input
+                    type="checkbox"
+                    name="employeesNeeded"
+                    id="employeesNeeded"
+                    {...register("employeesNeeded")}
+                />
+
+                <Upload
+                    file={file}
+                    setFile={setFile}
+                    url={url}
+                    setUrl={setUrl} />
+
+               <SaveButton
+                   type="submit" />
 
             </form>
+
         </div>
+
     )
+
 }
 
 export default NewJobForm;

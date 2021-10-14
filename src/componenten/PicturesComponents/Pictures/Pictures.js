@@ -5,42 +5,55 @@ import styles from "./Pictures.module.css"
 
 function Pictures() {
     const [pictures, setPictures] = useState(null);
+    const token = localStorage.getItem("token");
 
     useEffect(()=> {
-        const token = localStorage.getItem("token")
+
         async function fetchPictures() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/pictures`, {
+
                     headers: {
+
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
+
                     }
+
                 });
+
                 setPictures(result.data);
-                console.log(result.data)
+
             } catch (error) {
+
                 console.error(error);
             }
+
         }
+
         fetchPictures();
+
     },[]);
 
-// console.log(pictures)
     return(
+
         <>
 
             {pictures?
 
-                <div className={styles["picture-component"]}>
+                <div
+                    className={styles["picture-component"]} >
 
                     { pictures.map((picture)=> {
-                        // console.log(picture)
+
                         return (
+
                             <PicturesComponent
                                 name={picture.name}
                                 url={picture.url}
-                                size={picture.size}
-                            />);
+                                size={picture.size} />);
 
                         })}
 
@@ -48,7 +61,7 @@ function Pictures() {
 
                 :
 
-                <h1>loading...</h1>
+                <h1> loading... </h1>
 
             }
 
@@ -57,4 +70,5 @@ function Pictures() {
     )
 
 }
+
 export default Pictures;

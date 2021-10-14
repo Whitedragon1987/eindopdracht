@@ -7,25 +7,53 @@ import {NavLink} from "react-router-dom";
 function JobsPreview() {
 
     return (
+
         <>
-            <div className={styles['jobs-wrapper']}>
-                <p>Diensten</p>
-                <ul className={styles['jobs-images']} >
-                    <div className={styles['jobs1']}>
-                        <img src={jobs1}/>
+            <div
+                className={styles['jobs-wrapper']} >
+
+                <p> Diensten </p>
+
+                <ul
+                    className={styles['jobs-images']} >
+
+                    <div
+                        className={styles['jobs1']} >
+
+                        <img src={jobs1} />
+
                     </div>
-                    <div className={styles['jobs2']}>
+
+                    <div
+                        className={styles['jobs2']} >
+
                         <img src={jobs2}/>
+
                     </div>
-                    <div className={styles['jobs3']}>
+
+                    <div
+                        className={styles['jobs3']} >
+
                         <img src={jobs3}/>
+
                     </div>
 
                 </ul>
-                <NavLink to="/machines"  exact activeClassName="active-link" className={styles['link']}>meer...</NavLink>
+
+                <NavLink
+                    to="/machines" exact activeClassName="active-link"
+                         className={styles['link']} >
+
+                    meer...
+
+                </NavLink>
+
             </div>
+
         </>
+
     )
+
 }
 
 export default JobsPreview;

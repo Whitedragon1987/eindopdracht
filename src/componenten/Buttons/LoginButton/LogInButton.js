@@ -6,10 +6,12 @@ function LogInButton() {
     const {login} = useContext(AuthContext);
 
     return(
+
         <button
-            className={styles['log-in-button']}
-        >
+            className={styles['log-in-button']} >
+
             Log In!
+
         </button>
     )
 }

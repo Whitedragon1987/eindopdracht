@@ -5,11 +5,14 @@
     grid-template-columns: 63% 37%;
     padding: 0px;
 
+
 }
 
 .logo{
     width: 100%;
     height: 400px;
+    max-width: none;
+    max-height: none;
 }
 
 .data-wrapper{
