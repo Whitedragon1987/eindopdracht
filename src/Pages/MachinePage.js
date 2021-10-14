@@ -1,20 +1,21 @@
 import MachineComponent from "../componenten/MachinePageCompnents/Machine/MachineComponent";
 
-
 function MachinePage() {
 
     return(
+
         <>
 
-                <div>
+            <div>
 
-                    <MachineComponent/>
+                <MachineComponent/>
 
-               </div>
+            </div>
 
         </>
 
     )
 
 }
+
 export default MachinePage;

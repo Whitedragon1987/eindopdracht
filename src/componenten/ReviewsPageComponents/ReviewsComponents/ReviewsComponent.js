@@ -12,56 +12,89 @@ function ReviewsComponent({review_id}) {
     const token = localStorage.getItem("token");
 
     useEffect(()=> {
+
         async function getReviewContent() {
+
             try {
+
                 const result = await axios.get(`http://localhost:8080/reviews/${review_id}`,
+
                     {
+
                         headers: {
+
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
+
                         }
+
                     });
+
                 setReviewContent(result.data);
+
             } catch (error) {
+
                 console.error(error);
+
             }
+
         }
+
         getReviewContent();
-    }, [review_id, token]);
+
+        }, [review_id, token]);
 
     useEffect(()=> {
+
         async function getPictureContent() {
+
             try {
+
                 const pictureResult = await axios.get(`http://localhost:8080/pictures/${reviewContent.picture.id}`,
+
                     {
+
                         headers: {
+
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
+
                         },
+
                         responseType: "blob",
+
                     });
-                // console.log(pictureResult)
+
                 setPictureContent(pictureResult)
+
                 setUrlContent(pictureResult.config.url)
+
             }catch (error) {
+
                 console.error(error);
+
             }
+
         }
+
         getPictureContent();
+
     }, [reviewContent])
-    console.log(reviewContent)
+
     return(
+
         <>
 
-            <div className={styles["component-wrapper"]}>
+            <div className={styles["component-wrapper"]} >
 
-                <div className={styles["imagewrapper"]}>
+                <div className={styles["imagewrapper"]} >
 
                     {reviewContent.picture != null ?
 
-                        <div className={styles["image"]}>
+                        <div className={styles["image"]} >
 
-                            <img alt={reviewContent.name} src={urlContent}/>
+                            <img alt={reviewContent.name}
+                                 src={urlContent} />
 
                         </div>
 
@@ -72,34 +105,32 @@ function ReviewsComponent({review_id}) {
                     }
 
 
-                    <div className={styles["data-container"]}>
+                    <div className={styles["data-container"]} >
 
-                        <div className={styles['data-wrapper']}>
+                        <div className={styles['data-wrapper']} >
 
-                            <h1>Naam :</h1>
-                            <p>{reviewContent.name}</p>
+                            <h1> Naam : </h1>
 
-                            <h1>Review :</h1>
-                            <p>{reviewContent.description}</p>
+                            <p> {reviewContent.name} </p>
+
+                            <h1> Review : </h1>
+
+                            <p> {reviewContent.description} </p>
 
                         </div>
 
-                        <RatingReadOnly rating={reviewContent.value}/>
+                        <RatingReadOnly rating={reviewContent.value} />
 
                     </div>
 
-
-                    {/*    :*/}
-
-                    {/*    <p>...loading</p>*/}
-
-                    {/*    }*/}
                 </div>
 
             </div>
 
         </>
+
     )
+
 }
 
 export default ReviewsComponent;

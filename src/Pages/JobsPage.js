@@ -1,15 +1,17 @@
-import React from "react";
 import Jobs from "../componenten/JobspageComponents/Jobs/Jobs";
-
 
 function JobsPage() {
 
     return(
-        <>
-            <Jobs/>
 
-        </>
+       <>
+
+           <Jobs/>
+
+       </>
+
     )
 
 }
+
 export default JobsPage;

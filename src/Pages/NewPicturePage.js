@@ -11,6 +11,7 @@ function NewPicturePage(){
         </div>
 
     )
+
 }
 
 export default NewPicturePage;

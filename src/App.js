@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
 import {Switch, Route,} from "react-router-dom";
 import './App.css';
-import RequestPage from "./Pages/RequestPage";
+import NewRequestPage from "./Pages/NewRequestPage";
 import NewJobPage from "./Pages/NewJobPage";
 import NewMachinePage from "./Pages/NewMachinePage";
 import NewEmployeePage from "./Pages/NewEmployeePage";
@@ -22,18 +21,37 @@ import EmployeePage from "./Pages/EmployeePage";
 import PicturesPage from "./Pages/PicturesPage";
 import NewPicturePage from "./Pages/NewPicturePage";
 import ReviewsPage from "./Pages/ReviewsPage";
+import RequestsPage from "./Pages/RequestsPage";
+import RequestPage from "./Pages/RequestPage";
+import NavBarAdmin from "./Header/NavBarAdmin";
 
 function App() {
+
     return (
       <>
-          <div className={"background"}>
+
+          <div
+              className={"background"} >
+
               <NavBar/>
+
+              <NavBarAdmin/>
+
               <Switch >
+
                   <Route exact path="/">
                       <HomePage/>
                   </Route>
 
-                  <Route exact path="/request">
+                  <Route exact path="/new_request">
+                      <NewRequestPage/>
+                  </Route>
+
+                  <Route exact path="/requests">
+                      <RequestsPage/>
+                  </Route>
+
+                  <Route path="/request/:request_id">
                       <RequestPage/>
                   </Route>
 
@@ -110,9 +128,13 @@ function App() {
                   </Route>
 
               </Switch>
+
           </div>
+
       </>
+
     );
+
 }
 
 export default App;

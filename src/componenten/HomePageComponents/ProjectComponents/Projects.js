@@ -9,30 +9,59 @@ import {NavLink} from "react-router-dom";
 function Projects() {
 
     return (
+
         <>
-            <div className={styles['project-wrapper']}>
-                <p>Afgeronde Projecten</p>
+            <div className={styles['project-wrapper']} >
+
+                <p> Afgeronde Projecten </p>
+
                 <ul className={styles['project-images']} >
+
                     <div className={styles['project1']}>
-                        <img src={project1}/>
+
+                       <img src={project1}/>
+
                     </div>
-                    <div className={styles['project2']}>
+
+                    <div className={styles['project2']} >
+
                         <img src={project2}/>
+
                     </div>
-                    <div className={styles['project3']}>
+
+                    <div className={styles['project3']} >
+
                         <img src={project3}/>
+
                     </div>
-                    <div className={styles['project4']}>
+
+                    <div className={styles['project4']} >
+
                         <img src={project4}/>
+
                     </div>
-                    <div className={styles['project5']}>
+
+                    <div className={styles['project5']} >
+
                         <img src={project5}/>
+
                     </div>
+
                 </ul>
-                <NavLink to="/review"  exact activeClassName="active-link" className={styles['link']}>meer...</NavLink>
+
+                <NavLink to="/review"  exact activeClassName="active-link"
+                         className={styles['link']} >
+
+                    meer...
+
+                </NavLink>
+
             </div>
+
         </>
+
     )
+
 }
 
 export default Projects;

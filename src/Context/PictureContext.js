@@ -1,6 +1,4 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
-import axios from "axios";
-import {AuthContext} from "./AuthContext";
 
 export const PictureContext = createContext({});
 
@@ -10,6 +8,7 @@ function PictureContextProvider({children}) {
     const [url, setUrl] = useState({});
 
     return(
+
         <PictureContext.Provider
 
             value={{
@@ -22,7 +21,9 @@ function PictureContextProvider({children}) {
             {children}
 
         </PictureContext.Provider>
+
     );
+
 }
 
 export default PictureContextProvider;

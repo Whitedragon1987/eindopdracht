@@ -3,10 +3,15 @@ import Profile from "../componenten/CustomerDataPageComponents/ProfileComponents
 function CustomerDataPage() {
 
     return(
+
         <>
+
             <Profile/>
+
         </>
+
     )
+
 }
 
 export default CustomerDataPage;
