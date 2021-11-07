@@ -1,12 +1,15 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import PicturesComponent from "../PicturesComponent/PicturesComponent";
 import styles from "./Pictures.module.css"
+import {NavLink} from "react-router-dom";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function Pictures() {
 
     const [pictures, setPictures] = useState(null);
     const token = localStorage.getItem("token");
+    const {user} = useContext(AuthContext);
 
     useEffect(()=> {
 
@@ -42,7 +45,7 @@ function Pictures() {
 
         <>
 
-            {pictures?
+            {user != null && pictures ?
 
                 <div className={styles["picture-component"]} >
 
@@ -53,15 +56,21 @@ function Pictures() {
                             <PicturesComponent name={picture.name}
                                                url={picture.url} />);
 
-                        })}
+                    })}
 
                 </div>
 
                 :
 
-                <h1> loading... </h1>
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
 
             }
+
 
         </>
 

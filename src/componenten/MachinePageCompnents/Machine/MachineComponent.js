@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "./MachineComponent.module.css"
 import axios from "axios";
 import moment from "moment";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function MachineComponent() {
     const {machine_id} = useParams();
-
     const [machineContent, setMachineContent] = useState({});
     const [pictureContent, setPictureContent] = useState({});
     const [urlContent, setUrlContent] = useState({});

@@ -3,8 +3,12 @@ import jobs1 from "../../../assets/Jobs/tuinaanleg.jpg";
 import jobs2 from "../../../assets/Jobs/snoeien.jpg";
 import jobs3 from "../../../assets/Jobs/graven.jpg";
 import {NavLink} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function JobsPreview() {
+
+    const {user} = useContext(AuthContext);
 
     return (
 
@@ -35,12 +39,17 @@ function JobsPreview() {
 
                 </ul>
 
+                {user != null &&
+
                 <NavLink to="/machines" exact activeClassName="active-link"
                          className={styles['link']} >
 
                     meer...
 
                 </NavLink>
+
+                }
+
 
             </div>
 

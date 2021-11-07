@@ -6,10 +6,16 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {forkJoin, map} from "rxjs";
 import Upload from "../../Upload/Upload";
+import {Multiselect} from "multiselect-react-dropdown";
+import createMachineObjects from "../../../helpers/createMachineObjects";
+import createEmployeeObjects from "../../../helpers/createEmployeeObjects";
 
 function NewJobForm() {
 
     const { register, watch, formState: {errors}, handleSubmit, control } = useForm();
+    const selectEmployees = watch("employeesNeeded");
+    const [employeeOptions, setEmployeeOptions] = useState();
+    const [employeeChoice, setEmployeeChoice] = useState([]);
     const message = "dit veld mag niet leeg blijven"
     const history = useHistory();
     const token = localStorage.getItem("token");
@@ -26,7 +32,7 @@ function NewJobForm() {
         ]).pipe(map(([job, picture]) => {
 
             assignPictureToJob(job.data.id, picture.data.message)
-
+           assignEmployeeToJob(job.data.id, employeeChoice )
         })).subscribe()
 
     };
@@ -47,6 +53,7 @@ function NewJobForm() {
                     name: job.job_name,
                     description: job.job_description,
                     employeeNeeded: job.employeesNeeded,
+
 
                 })
 
@@ -104,7 +111,67 @@ function NewJobForm() {
 
     }
 
+    async function assignEmployeeToJob(jobId, employeeId){
 
+        try {
+
+            const result = await axios.post(`http://localhost:8080/jobs/job/${jobId}/employee`,
+
+                {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    },
+
+                    id: employeeId,
+
+                })
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+    useEffect(()=> {
+
+        async function fetchEmployees() {
+
+            try {
+
+                const result = await axios.get(`http://localhost:8080/employees`, {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    }
+
+                });
+
+                const employeeOptions = createEmployeeObjects(result.data);
+
+                setEmployeeOptions(employeeOptions);
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+        fetchEmployees();
+
+    },[]);
+
+    console.log(employeeChoice)
     return (
 
         <div id="pageWrapper" >
@@ -152,6 +219,35 @@ function NewJobForm() {
                        name="employeesNeeded"
                        id="employeesNeeded"
                        {...register("employeesNeeded")} />
+
+                <div className={styles["employee-wrapper"]}>
+
+                    {selectEmployees&& (
+
+                        <Multiselect options={employeeOptions}
+                                     displayValue="value"
+                                     onSelect={(employeeChoice)=> {setEmployeeChoice(employeeChoice)}}
+                                     onRemove={(employeeChoice)=> {setEmployeeChoice(employeeChoice)}}
+                                     closeOnSelect={false}
+                                     showCheckbox
+                                     placeholder="medewerkers"
+                                     style={{
+                                         chips: {
+                                             background: '#EDF50B',
+                                             color: `#000`
+                                         },
+                                         multiselectContainer: {
+                                             color: '#000'
+                                         },
+                                         searchBox: {
+                                             border: '1px solid #EDF50B',
+                                             width: `260px`
+                                         }
+                                     }} />
+
+                    )}
+
+                </div>
 
                 <Upload file={file}
                         setFile={setFile}

@@ -2,6 +2,7 @@ import styles from "./Profile.module.css"
 import {useContext} from "react";
 import {AuthContext} from "../../../Context/AuthContext";
 import PrivateContent from "../PrivateContent/PrivateContent";
+import {NavLink} from "react-router-dom";
 
 function Profile() {
 
@@ -11,37 +12,51 @@ function Profile() {
 
         <>
 
-            <div className={styles["pagewrapper"]} >
+            {user != null ?
 
-                {user &&
+                <div className={styles["pagewrapper"]} >
 
-                <div className={styles["profile-warpper"]} >
+                    {user &&
 
-                    <>
+                    <div className={styles["profile-warpper"]} >
 
-                        <h1>Uw gebruikersgegevens</h1>
+                        <>
 
-                        <div className={styles["profile"]} >
+                            <h1>Uw gebruikersgegevens</h1>
 
-                            <p> Gebruikersnaam: </p>
+                            <div className={styles["profile"]} >
 
-                            <p> {user.username} </p>
+                                <p> Gebruikersnaam: </p>
 
-                            <p> Email: </p>
+                                <p> {user.username} </p>
 
-                            <p> {user.email} </p>
+                                <p> Email: </p>
 
-                        </div>
+                                <p> {user.email} </p>
 
-                    </>
+                            </div>
+
+                        </>
+
+                    </div>
+
+                    }
+
+                    <PrivateContent/>
 
                 </div>
 
-                }
+                :
 
-                <PrivateContent/>
+                <>
 
-            </div>
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
+
+            }
+
 
         </>
 

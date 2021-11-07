@@ -5,8 +5,12 @@ import machine4 from "../../../assets/Machines/shovel.jpg";
 import machine5 from "../../../assets/Machines/vrachtwagen.jpg";
 import styles from "./Machines.module.css";
 import {NavLink} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function MachinesPreview() {
+
+    const {user} = useContext(AuthContext);
 
     return (
 
@@ -50,12 +54,16 @@ function MachinesPreview() {
 
                 </ul>
 
-                <NavLink to="/machines"  exact activeClassName="active-link"
-                         className={styles['link']} >
+                {user &&
+
+                <NavLink to="/machines" exact activeClassName="active-link"
+                         className={styles['link']}>
 
                     meer...
 
                 </NavLink>
+
+                }
 
             </div>
 

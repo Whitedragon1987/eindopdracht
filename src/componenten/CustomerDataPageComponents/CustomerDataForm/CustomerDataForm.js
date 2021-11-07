@@ -1,7 +1,6 @@
 import {useContext} from "react";
 import styles from "./CustomerDataForm.module.css";
 import {useFormContext} from "react-hook-form";
-import CompanyData from "../CompanyData/CompanyData";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
@@ -11,7 +10,6 @@ import {AuthContext} from "../../../Context/AuthContext";
 function CustomerDataForm() {
 
     const { register, watch, formState: {errors}, handleSubmit } = useFormContext();
-    const selectCompany = watch("company");
     const message = "Dit veld mag niet leeg blijven";
     const history = useHistory();
     const { user } = useContext(AuthContext);
@@ -40,7 +38,7 @@ function CustomerDataForm() {
                     userZipcode: userdata.user_zipcode,
                     userCity: userdata.user_city,
                     userPhoneNumber: userdata.user_phonenumber,
-                    hasCompany: selectCompany,
+
             });
 
             setTimeout(() => {
@@ -63,6 +61,7 @@ function CustomerDataForm() {
 
             <form className={styles['customer-data-form']}
                   onSubmit={handleSubmit(onSubmit)} >
+
 
                 <label htmlFor="user_firstname" >
 
@@ -163,31 +162,9 @@ function CustomerDataForm() {
 
                 </div>
 
-                <label htmlFor="company" >
-
-                    Bedrijf?
-
-                </label>
-
-                <div
-                    className={styles["checkbox"]} >
-
-                    <input type="checkbox"
-                           name="company"
-                           id="company"
-                           {...register("company")} />
-
-                </div>
-
                 <SaveButton/>
 
             </form>
-
-            {selectCompany && (
-
-                <CompanyData/>
-
-            )}
 
         </>
 

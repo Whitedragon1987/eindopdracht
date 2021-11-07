@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import JobsComponent from "../JobsComponents/JobsComponent";
+import {NavLink} from "react-router-dom";
 
 function Jobs() {
 
@@ -60,7 +61,12 @@ function Jobs() {
 
                 :
 
-                <h1> loading... </h1>
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
 
             }
 

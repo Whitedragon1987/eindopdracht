@@ -1,6 +1,10 @@
 import {NavLink, useHistory} from "react-router-dom";
+import {AuthContext} from "../Context/AuthContext";
+import {useContext} from "react";
 
 function NavBar() {
+    const {user} = useContext(AuthContext);
+    console.log(user)
 
     return(
 
@@ -71,6 +75,56 @@ function NavBar() {
                     </li>
 
                 </ul>
+
+                {user && user.authority.length == 2 &&
+
+                <ul>
+
+                    <li>
+
+                        <NavLink to="/requests"  exact activeClassName="active-link">Verzoeken</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/employees"  exact activeClassName="active-link">Medewerkers</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/new-picture"  exact activeClassName="active-link">Afbeelding toevoegen</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/new-employee"  exact activeClassName="active-link">Medewerker toevoegen</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/new-job" exact activeClassName="active-link">Dienst toevoegen</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/new-machine" exact activeClassName="active-link">Machine toevoegen</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/reviews"  exact activeClassName="active-link">Reviews</NavLink>
+
+                    </li>
+
+                </ul>
+
+                }
 
             </div>
 

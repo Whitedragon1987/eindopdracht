@@ -35,8 +35,6 @@ function App() {
 
               <NavBar/>
 
-              <NavBarAdmin/>
-
               <Switch >
 
                   <Route exact path="/">

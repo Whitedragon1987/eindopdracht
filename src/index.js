@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from "react-router-dom";
 import ContextFormProvider from "./Context/FormContext";
 import AuthContextProvider from "./Context/AuthContext";
-import PictureContext from "./Context/PictureContext";
 
 ReactDOM.render(
 
@@ -18,11 +17,7 @@ ReactDOM.render(
 
               <ContextFormProvider>
 
-                  <PictureContext>
-
-                     <App />
-
-                  </PictureContext>
+                  <App />
 
               </ContextFormProvider>
 

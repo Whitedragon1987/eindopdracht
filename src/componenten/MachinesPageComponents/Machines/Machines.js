@@ -1,6 +1,7 @@
 import MachinesComponent from "../MachinesComponent/MachinesComponent";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 
 function Machines() {
@@ -62,7 +63,13 @@ function Machines() {
 
             :
 
-                <h1> loading... </h1>
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
+
 
         }
 

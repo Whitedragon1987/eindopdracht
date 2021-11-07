@@ -1,9 +1,10 @@
 .customer-data-form{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr ;
     row-gap: 20px;
     justify-items: center;
     padding-top: 20px;
+    height: 800px;
 }
 
 .firstname, .lastname, .address, .zipcode, .city, .phone, .email{

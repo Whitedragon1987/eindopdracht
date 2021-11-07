@@ -2,7 +2,7 @@ import styles from "./NewReview.module.css"
 import Upload from "../../Upload/Upload";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import {useForm} from "react-hook-form";
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {GiMonsteraLeaf} from "react-icons/gi";
 import {forkJoin, map} from "rxjs";
@@ -111,78 +111,91 @@ function NewReview() {
 
         <>
 
-            <form onSubmit={handleSubmit(onSubmit)}
-                  className={styles['review']} >
+            {user != null ?
 
-                <label htmlFor="rating" >
+                <form onSubmit={handleSubmit(onSubmit)}
+                      className={styles['review']} >
 
-                    Laat hier uw review achter
+                    <label htmlFor="rating" >
 
-                </label>
+                        Laat hier uw review achter
 
-                <div>
+                    </label>
 
-                    {[...Array(5)].map((leaf, i) => {
+                    <div>
 
-                        const ratingValue = i + 1;
+                        {[...Array(5)].map((leaf, i) => {
 
-                        return(
+                            const ratingValue = i + 1;
 
-                            <label>
+                            return(
 
-                                <input type="radio"
-                                       name="rating"
-                                       value={ratingValue}
-                                       onClick={() => setRating(ratingValue)}
-                                       {...register("rating",
-                                           {required: {value: true, message: message}})} />
+                                <label>
 
-                                {errors.rating && <p> {errors.rating.message} </p>}
+                                    <input type="radio"
+                                           name="rating"
+                                           value={ratingValue}
+                                           onClick={() => setRating(ratingValue)}
+                                           {...register("rating",
+                                               {required: {value: true, message: message}})} />
 
-                                <GiMonsteraLeaf className={styles['leaf']}
-                                                color={ratingValue <= (hover || rating) ? "#008000" : "#e4e5e9"}
-                                                onMouseEnter={() => setHover(ratingValue)}
-                                                onMouseLeave={() => setHover(null)} />
+                                    {errors.rating && <p> {errors.rating.message} </p>}
 
-                            </label>
+                                    <GiMonsteraLeaf className={styles['leaf']}
+                                                    color={ratingValue <= (hover || rating) ? "#008000" : "#e4e5e9"}
+                                                    onMouseEnter={() => setHover(ratingValue)}
+                                                    onMouseLeave={() => setHover(null)} />
 
-                        )})}
+                                </label>
 
-                </div>
+                            )})}
 
-                <label htmlFor="name" >
+                    </div>
 
-                    Laat hier uw naam achter
+                    <label htmlFor="name" >
 
-                </label>
+                        Laat hier uw naam achter
 
-                <input {...register("name",
-                    {required: {value: true, message : message}})} />
+                    </label>
 
-                {errors.name && <p> {errors.name.message} </p>}
+                    <input {...register("name",
+                        {required: {value: true, message : message}})} />
 
-                <label htmlFor="description" >
+                    {errors.name && <p> {errors.name.message} </p>}
 
-                    Beschrijf hier uw ervaring
+                    <label htmlFor="description" >
 
-                </label>
+                        Beschrijf hier uw ervaring
 
-                <input className={styles["input"]}
-                       {...register("description",
-                           {required: {value: true, message : message}})} />
+                    </label>
 
-                {errors.description && <p> {errors.description.message} </p>}
+                    <input className={styles["input"]}
+                           {...register("description",
+                               {required: {value: true, message : message}})} />
 
-                <h1> Laat hier eventueel een foto van het geleverde werk achter </h1>
+                    {errors.description && <p> {errors.description.message} </p>}
 
-                <Upload file={file}
-                        setFile={setFile}
-                        url={url}
-                        setUrl={setUrl} />
+                    <h1> Laat hier eventueel een foto van het geleverde werk achter </h1>
 
-                <SaveButton type="submit" />
+                    <Upload file={file}
+                            setFile={setFile}
+                            url={url}
+                            setUrl={setUrl} />
 
-            </form>
+                    <SaveButton type="submit" />
+
+                </form>
+
+                :
+
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
+
+            }
 
         </>
 

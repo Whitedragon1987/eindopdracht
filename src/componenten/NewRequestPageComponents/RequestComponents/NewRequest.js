@@ -15,6 +15,7 @@ import createJobObjects from "../../../helpers/createJobObjects";
 import createMachineObjects from "../../../helpers/createMachineObjects";
 import {AuthContext} from "../../../Context/AuthContext";
 import createMachineIdList from "../../../helpers/createMachineIdList";
+import {NavLink} from "react-router-dom";
 
 
 function NewRequest() {
@@ -98,11 +99,8 @@ function NewRequest() {
 
     async function onSubmit(data) {
 
-        console.log(machinesChoice)
         if (machinesChoice != null) {
-
             const machineIdList =  createMachineIdList(machinesChoice);
-            console.log(machineIdList)
             setMachineIdList(machineIdList);
             console.log(machineIdList)
 
@@ -140,10 +138,11 @@ function NewRequest() {
     return(
 
         <>
+            {user != null ?
 
-            <div className= {styles['request-wrapper']} >
+                <div className= {styles['request-wrapper']} >
 
-                <form onSubmit={handleSubmit(onSubmit)} >
+                    <form onSubmit={handleSubmit(onSubmit)} >
 
                         <div>
 
@@ -160,7 +159,8 @@ function NewRequest() {
 
                                         <Multiselect options={machineOptions}
                                                      displayValue="value"
-                                                     onRemove={(machinesChoice)=> {setMachinesChoice(machinesChoice)}}
+                                                     onSelect={(machines) => {setMachinesChoice(machines)}}
+                                                     onRemove={(machines)=> {setMachinesChoice(machines)}}
                                                      showCheckbox
                                                      closeOnSelect={false}
                                                      placeholder="machines"
@@ -291,9 +291,22 @@ function NewRequest() {
 
                         </div>
 
-                </form>
+                    </form>
 
-            </div>
+                </div>
+
+                :
+
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
+
+            }
+
+
 
         </>
 

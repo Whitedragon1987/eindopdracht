@@ -11,9 +11,12 @@
     justify-items: center;
 }
 
-/*.employee-needed{*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr;*/
-/*    justify-items: center;*/
-/*}*/
-
+.page-wrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    border: white 1px solid;
+    width: 99%;
+    padding-bottom: 20px;
+}

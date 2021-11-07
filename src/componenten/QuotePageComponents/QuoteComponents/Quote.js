@@ -5,7 +5,7 @@ import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/Priv
 import {useContext, useState} from "react";
 import axios from "axios";
 import { Controller, useForm} from "react-hook-form";
-import {useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {AuthContext} from "../../../Context/AuthContext";
 import DatePicker from "react-datepicker";
 import {forkJoin, map} from "rxjs";
@@ -108,62 +108,75 @@ function Quote(){
     return(
 
         <>
+            {user != null ?
 
-            <form className={styles['quote-wrapper']}
-                  onSubmit={handleSubmit(onSubmit)} >
+                <form className={styles['quote-wrapper']}
+                      onSubmit={handleSubmit(onSubmit)} >
 
-                <h1> Voor wie mogen wij een offerte aanbieden? </h1>
+                    <h1> Voor wie mogen wij een offerte aanbieden? </h1>
 
-                <PrivateContent/>
+                    <PrivateContent/>
 
-                <div className={styles['preference-wrapper']} >
+                    <div className={styles['preference-wrapper']} >
 
-                    <label htmlFor="preference" >
+                        <label htmlFor="preference" >
 
-                        Voorkeursdatum :
+                            Voorkeursdatum :
+
+                        </label>
+
+                        <Controller control={control}
+                                    name= "preference"
+                                    render={({field}) => (
+
+                                        <DatePicker
+
+                                            placeholderText="Kies uw datum"
+                                            onChange={(date)=> field.onChange(date)}
+                                            selected={field.value}
+                                            dateFormat = "dd/ MM/ yyyy"
+                                            minDate={new Date()}
+                                            required />
+
+                                    )}
+
+                        />
+
+                    </div>
+
+                    <label htmlFor="description" >
+
+                        Omschrijving :
 
                     </label>
 
-                    <Controller control={control}
-                                name= "preference"
-                                render={({field}) => (
+                    <textarea id="description"
+                              {...register("description",
+                                  {required: {value: true, message: message }})} />
 
-                                    <DatePicker
-
-                                        placeholderText="Kies uw datum"
-                                        onChange={(date)=> field.onChange(date)}
-                                        selected={field.value}
-                                        dateFormat = "dd/ MM/ yyyy"
-                                        minDate={new Date()}
-                                        required />
-
-                                )}
-
-                    />
-
-                </div>
-
-                <label htmlFor="description" >
-
-                    Omschrijving :
-
-                </label>
-
-                <textarea id="description"
-                          {...register("description",
-                              {required: {value: true, message: message }})} />
-
-                {errors.description && <p> {errors.description.message} </p>}
+                    {errors.description && <p> {errors.description.message} </p>}
 
 
-                <Upload file={file}
-                        setFile={setFile}
-                        url={url}
-                        setUrl={setUrl} />
+                    <Upload file={file}
+                            setFile={setFile}
+                            url={url}
+                            setUrl={setUrl} />
 
-                <SendButton type="submit" />
+                    <SendButton type="submit" />
 
-            </form>
+                </form>
+
+                :
+
+                <>
+
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
+
+            }
+
 
         </>
 

@@ -2,107 +2,128 @@ import styles from "./ContactPageComponent.module.css";
 import {NavLink} from "react-router-dom";
 import Preview from "./ReviewsPreview/Preview";
 import Logo from "../HomePageComponents/LogoComponents/Logo";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext";
 
 
 function ContactPageComponent({reviews, setReviews, pictures, setPictures}) {
+
+    const {user} = useContext(AuthContext);
 
     return (
 
         <>
 
-            <div>
+            {user != null ?
 
-                <div className={styles["header"]} >
+                <>
+                    <div>
 
-                    <strong>
-                        <NavLink to="/reviews" exact activeClassname="active-link"
-                                 className={styles["link"]} >
+                        <div className={styles["header"]}>
 
-                            Reviews
+                            <strong>
+                                <NavLink to="/reviews" exact activeClassname="active-link"
+                                         className={styles["link"]}>
 
-                        </NavLink>
-                    </strong>
+                                    Reviews
 
-                    <NavLink to="/review" exact activeClassName="active-link" >
+                                </NavLink>
+                            </strong>
 
-                        plaats uw review
+                            <NavLink to="/review" exact activeClassName="active-link">
 
-                    </NavLink>
+                                plaats uw review
 
-                </div>
+                            </NavLink>
 
-                {reviews != null ?
+                        </div>
 
-                    <div className={styles["reviews"]} >
+                        {reviews != null ?
 
-                        {reviews.slice(0,3).map((review)=> {
+                            <div className={styles["reviews"]}>
 
-                            return (
+                                {reviews.slice(0, 3).map((review) => {
 
-                                <Preview key={review.id}
-                                         pic={review.picture.data}
-                                         title={review.picture.name}
-                                         name={review.name}
-                                         descr={review.description}
-                                         rating={review.value} />
+                                    return (
 
-                            )
+                                        <Preview key={review.id}
+                                                 pic={review.picture.data}
+                                                 title={review.picture.name}
+                                                 name={review.name}
+                                                 descr={review.description}
+                                                 rating={review.value}/>
 
-                        })}
+                                    )
+
+                                })}
+
+                            </div>
+
+                            :
+
+                            <p>
+
+                                loading reviews...
+
+                            </p>
+
+                        }
+
+                    </div>
+
+                    <div>
+
+                        {pictures != null ?
+
+                            <div className={styles["image-wrapper"]}>
+
+                                {pictures.slice(0, 8).map((picture) => {
+
+                                    return (
+
+                                        <img src={picture.url}
+                                             alt={picture.name}
+                                             key={picture.name}/>
+
+                                    )
+
+                                })}
+
+                            </div>
+
+                            :
+
+                            <>
+
+                                <h1> Om deze content te zien moet u zijn ingelogd </h1>
+
+                                <NavLink to="/login">Log hier in</NavLink>
+                            </>
+
+                        }
 
                     </div>
 
-                    :
+                    <div className={styles["footer"]}>
 
-                    <p>
-
-                        loading reviews...
-
-                    </p>
-
-                }
-
-            </div>
-
-            <div>
-
-                {pictures != null ?
-
-                    <div className={styles["image-wrapper"]} >
-
-                        {pictures.slice(0,8).map((picture)=> {
-
-                            return(
-
-                                <img src={picture.url}
-                                     alt={picture.name}
-                                     key={picture.name} />
-
-                            )
-
-                        })}
+                        <Logo/>
 
                     </div>
+
+                </>
 
                 :
 
-                <p>
+                <>
 
-                    loading ...
+                    <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                </p>
+                    <NavLink to="/login">Log hier in</NavLink>
+                </>
 
-                }
+            }
 
-            </div>
-
-            <div className={styles["footer"]} >
-
-                <Logo/>
-
-            </div>
-
-        </>
+            </>
 
     )
 

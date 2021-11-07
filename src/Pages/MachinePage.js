@@ -2,6 +2,7 @@ import MachineComponent from "../componenten/MachinePageCompnents/Machine/Machin
 
 function MachinePage() {
 
+
     return(
 
         <>

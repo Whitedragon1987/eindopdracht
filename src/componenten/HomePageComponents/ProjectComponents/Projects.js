@@ -5,8 +5,12 @@ import project4 from "../../../assets/projects/tuin beton.jpg";
 import project5 from "../../../assets/projects/tuin druk.jpg";
 import styles from "./Projects.module.css"
 import {NavLink} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "../../../Context/AuthContext";
 
 function Projects() {
+
+    const {user} = useContext(AuthContext);
 
     return (
 
@@ -49,12 +53,16 @@ function Projects() {
 
                 </ul>
 
-                <NavLink to="/review"  exact activeClassName="active-link"
-                         className={styles['link']} >
+                {user &&
 
-                    meer...
+                    <NavLink to="/review" exact activeClassName="active-link"
+                             className={styles['link']}>
 
-                </NavLink>
+                        meer...
+
+                    </NavLink>
+
+                }
 
             </div>
 

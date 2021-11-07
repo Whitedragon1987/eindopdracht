@@ -7,7 +7,6 @@ import CustomerDataForm from "../CustomerDataForm/CustomerDataForm";
 function PrivateContent() {
 
     const [privateContent, setPrivateContent] = useState({});
-    const [companyContent, setCompanyContent] = useState({});
     const [userdata, toggleUserdata] = useState(false)
     const { user } = useContext(AuthContext);
     const token = localStorage.getItem("token");
@@ -50,41 +49,6 @@ function PrivateContent() {
 
         },[user.id]);
 
-    useEffect(() => {
-
-        async function getCompanyContent() {
-
-            try {
-
-                const result = await axios.get(`http://localhost:8080/company/company/${user.id}`, {
-
-                    headers: {
-
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-
-                    }
-
-                });
-
-                setCompanyContent(result.data);
-
-            } catch (error) {
-
-                console.error(error);
-
-            }
-
-        }
-
-        if(privateContent.hasCompany === true) {
-
-            getCompanyContent();
-
-        }
-
-        },[privateContent]);
-
     return(
 
         <>
@@ -124,44 +88,6 @@ function PrivateContent() {
                             <p> Telefoon-nummer: </p>
 
                             <p> {privateContent.userPhoneNumber} </p>
-
-                        </div>
-
-                    </>
-
-                }
-
-                {privateContent.hasCompany === true &&
-
-                    <>
-
-                        <h1>Uw bedrijfsgegevens</h1>
-
-                        <div className={styles["company"]} >
-
-                            <p> Bedrijfsnaam: </p>
-
-                            <p> {companyContent.name} </p>
-
-                            <p> Adres: </p>
-
-                            <p> {companyContent.address} </p>
-
-                            <p> Postcode: </p>
-
-                            <p> {companyContent.zipcode} </p>
-
-                            <p> Vestigingsplaats: </p>
-
-                            <p> {companyContent.city} </p>
-
-                            <p> Telefoon-nummer: </p>
-
-                            <p> {companyContent.phoneNumber} </p>
-
-                            <p>Bedrijfsmail: </p>
-
-                            <p> {companyContent.emailaddress} </p>
 
                         </div>
 
