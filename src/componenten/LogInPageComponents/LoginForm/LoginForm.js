@@ -39,6 +39,7 @@ function LoginForm() {
                     <div className={styles["input-password"]} >
 
                         <input id="password"
+                               type="password"
                                placeholder="wachtwoord"
                                {...register("password",
                                    {required: {value: true, message: message }})} />

@@ -13,7 +13,6 @@ function AuthContextProvider({ children }) {
         status: 'pending',
 
     })
-    const [credentials, setCredentials] = useState({});
     const history = useHistory();
 
     function isTokenValid(jwtToken) {

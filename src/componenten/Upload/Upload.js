@@ -1,6 +1,6 @@
 import styles from "./Upload.module.css"
 
-function Upload({file, setFile, url, setUrl}) {
+function Upload({setFile, url, setUrl}) {
 
     const handleImageChange = (e) => {
 

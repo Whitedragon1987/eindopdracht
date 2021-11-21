@@ -1,4 +1,4 @@
-import Quote from "../componenten/QuotePageComponents/QuoteComponents/Quote";
+import QuoteComponent from "../componenten/QuotePageComponent/Quote/QuoteComponent";
 
 function QuotePage() {
 
@@ -6,7 +6,11 @@ function QuotePage() {
 
         <>
 
-            <Quote/>
+            <div>
+
+                <QuoteComponent/>
+
+            </div>
 
         </>
 

@@ -12,3 +12,10 @@
     grid-template-columns: 1fr;
     justify-items: center;
 }
+
+.private{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+    margin-bottom: 30px;
+}

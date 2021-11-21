@@ -1,11 +1,11 @@
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import styles from "./NewEmployeeForm.module.css";
-import {useFormContext} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import axios from "axios";
 
 function NewEmployeeForm() {
 
-   const{ register, formState: { errors }, handleSubmit } = useFormContext();
+   const{ register, formState: { errors }, handleSubmit } = useForm();
     const message = "dit veld mag niet leeg blijven"
     const token = localStorage.getItem("token");
 
@@ -13,7 +13,7 @@ function NewEmployeeForm() {
 
         try {
 
-            const result = await axios.post("http://localhost:8080/employees",
+           await axios.post("http://localhost:8080/employees",
 
                 {
 

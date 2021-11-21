@@ -21,19 +21,19 @@ function JobsPreview() {
 
                     <div className={styles['jobs1']} >
 
-                        <img src={jobs1} />
+                        <img src={jobs1} alt={jobs1}/>
 
                     </div>
 
                     <div className={styles['jobs2']} >
 
-                        <img src={jobs2}/>
+                        <img src={jobs2} alt={jobs2}/>
 
                     </div>
 
                     <div className={styles['jobs3']} >
 
-                        <img src={jobs3}/>
+                        <img src={jobs3} alt={jobs3}/>
 
                     </div>
 

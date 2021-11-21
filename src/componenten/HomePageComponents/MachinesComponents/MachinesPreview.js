@@ -24,31 +24,31 @@ function MachinesPreview() {
 
                     <div className={styles['machine1']} >
 
-                        <img src={machine1}/>
+                        <img src={machine1} alt={machine1}/>
 
                     </div>
 
                     <div className={styles['machine2']} >
 
-                        <img src={machine2}/>
+                        <img src={machine2} alt={machine2}/>
 
                     </div>
 
                     <div className={styles['machine3']} >
 
-                        <img src={machine3}/>
+                        <img src={machine3} alt={machine3}/>
 
                     </div>
 
                     <div className={styles['machine4']} >
 
-                        <img src={machine4}/>
+                        <img src={machine4} alt={machine4}/>
 
                     </div>
 
                     <div className={styles['machine5']} >
 
-                        <img src={machine5}/>
+                        <img src={machine5} alt={machine5}/>
 
                     </div>
 

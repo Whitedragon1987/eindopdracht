@@ -21,7 +21,7 @@ function SignUp() {
 
         try {
 
-            const response = await axios.post('http://localhost:8080/users',
+             await axios.post('http://localhost:8080/users',
 
                 {
 

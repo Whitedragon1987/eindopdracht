@@ -23,31 +23,31 @@ function Projects() {
 
                     <div className={styles['project1']}>
 
-                       <img src={project1}/>
+                       <img src={project1} alt={project1}/>
 
                     </div>
 
                     <div className={styles['project2']} >
 
-                        <img src={project2}/>
+                        <img src={project2} alt={project2}/>
 
                     </div>
 
                     <div className={styles['project3']} >
 
-                        <img src={project3}/>
+                        <img src={project3} alt={project3}/>
 
                     </div>
 
                     <div className={styles['project4']} >
 
-                        <img src={project4}/>
+                        <img src={project4} alt={project4}/>
 
                     </div>
 
                     <div className={styles['project5']} >
 
-                        <img src={project5}/>
+                        <img src={project5} alt={project5}/>
 
                     </div>
 

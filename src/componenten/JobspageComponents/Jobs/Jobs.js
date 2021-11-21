@@ -37,7 +37,7 @@ function Jobs() {
 
         fetchJobs();
 
-        },[]);
+        });
 
     return(
 
@@ -65,7 +65,17 @@ function Jobs() {
 
                     <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                    <NavLink to="/login">Log hier in</NavLink>
+                    <p>
+
+                        <NavLink to="/login">Log hier in</NavLink>
+
+                    </p>
+
+                    <p>
+
+                        <NavLink to="/signup">Schrijf u hier in</NavLink>
+
+                    </p>
                 </>
 
             }

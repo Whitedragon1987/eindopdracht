@@ -5,6 +5,7 @@ function createJobObjects(jobOptions) {
         const container = {};
 
         container["id"] = job.id;
+
         container["value"] = job.name;
 
         return container;

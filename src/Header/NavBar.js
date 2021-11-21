@@ -1,10 +1,9 @@
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {AuthContext} from "../Context/AuthContext";
 import {useContext} from "react";
 
 function NavBar() {
     const {user} = useContext(AuthContext);
-    console.log(user)
 
     return(
 
@@ -34,7 +33,7 @@ function NavBar() {
 
                     <li>
 
-                        <NavLink to="/quote"  exact activeClassName="active-link">Offerte</NavLink>
+                        <NavLink to="/new_quote"  exact activeClassName="active-link">Offerte</NavLink>
 
                     </li>
 
@@ -76,13 +75,19 @@ function NavBar() {
 
                 </ul>
 
-                {user && user.authority.length == 2 &&
+                {user && user.authority.length === 2 &&
 
                 <ul>
 
                     <li>
 
                         <NavLink to="/requests"  exact activeClassName="active-link">Verzoeken</NavLink>
+
+                    </li>
+
+                    <li>
+
+                        <NavLink to="/quotes"  exact activeClassName="active-link">Offertes</NavLink>
 
                     </li>
 

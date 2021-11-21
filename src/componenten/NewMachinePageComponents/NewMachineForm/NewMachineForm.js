@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useState} from "react";
 import styles from "./NewMachineForm.module.css"
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import {Controller, useForm} from "react-hook-form";
@@ -32,7 +32,7 @@ function NewMachineForm() {
 
        })).subscribe();
 
-    };
+    }
 
     function uploadMachine(machine) {
 
@@ -85,7 +85,7 @@ function NewMachineForm() {
 
         try {
 
-            const result = await axios.put(`http://localhost:8080/machines/machine/${machineId}/picture`,
+            await axios.put(`http://localhost:8080/machines/machine/${machineId}/picture`,
 
                 {
 

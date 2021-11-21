@@ -6,7 +6,7 @@ import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext";
 
 
-function ContactPageComponent({reviews, setReviews, pictures, setPictures}) {
+function ContactPageComponent({reviews, pictures}) {
 
     const {user} = useContext(AuthContext);
 
@@ -22,12 +22,14 @@ function ContactPageComponent({reviews, setReviews, pictures, setPictures}) {
                         <div className={styles["header"]}>
 
                             <strong>
+
                                 <NavLink to="/reviews" exact activeClassname="active-link"
                                          className={styles["link"]}>
 
                                     Reviews
 
                                 </NavLink>
+
                             </strong>
 
                             <NavLink to="/review" exact activeClassName="active-link">
@@ -95,9 +97,8 @@ function ContactPageComponent({reviews, setReviews, pictures, setPictures}) {
 
                             <>
 
-                                <h1> Om deze content te zien moet u zijn ingelogd </h1>
+                                <p>Geen afbeeldingen beschikbaar</p>
 
-                                <NavLink to="/login">Log hier in</NavLink>
                             </>
 
                         }
@@ -118,7 +119,18 @@ function ContactPageComponent({reviews, setReviews, pictures, setPictures}) {
 
                     <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                    <NavLink to="/login">Log hier in</NavLink>
+                    <p>
+
+                        <NavLink to="/login">Log hier in</NavLink>
+
+                    </p>
+
+                    <p>
+
+                        <NavLink to="/signup">Schrijf u hier in</NavLink>
+
+                    </p>
+
                 </>
 
             }

@@ -9,7 +9,7 @@ import {AuthContext} from "../../../Context/AuthContext";
 
 function CustomerDataForm() {
 
-    const { register, watch, formState: {errors}, handleSubmit } = useFormContext();
+    const { register, formState: {errors}, handleSubmit } = useFormContext();
     const message = "Dit veld mag niet leeg blijven";
     const history = useHistory();
     const { user } = useContext(AuthContext);
@@ -20,7 +20,7 @@ function CustomerDataForm() {
 
         try {
 
-            const result = await axios.post("http://localhost:8080/userdata",
+            await axios.post("http://localhost:8080/userdata",
 
                 {
 

@@ -7,7 +7,6 @@ function JobsComponent({job_id}) {
 
     const [jobContent, setJobContent] = useState({});
     const [urlContent, setUrlContent] = useState({});
-    const [pictureContent, setPictureContent] = useState({});
     const history = useHistory();
     const token = localStorage.getItem("token");
 
@@ -64,8 +63,6 @@ function JobsComponent({job_id}) {
                         responseType: "blob",
 
                     });
-
-                setPictureContent(pictureResult)
 
                 setUrlContent(pictureResult.config.url)
 

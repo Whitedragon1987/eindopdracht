@@ -1,14 +1,12 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./MachineComponent.module.css"
 import axios from "axios";
 import moment from "moment";
-import {useHistory, useParams} from "react-router-dom";
-import {AuthContext} from "../../../Context/AuthContext";
+import {useParams} from "react-router-dom";
 
 function MachineComponent() {
     const {machine_id} = useParams();
     const [machineContent, setMachineContent] = useState({});
-    const [pictureContent, setPictureContent] = useState({});
     const [urlContent, setUrlContent] = useState({});
     const token = localStorage.getItem("token");
 
@@ -65,8 +63,6 @@ function MachineComponent() {
                         responseType: "blob",
 
                     });
-
-                setPictureContent(pictureResult)
 
                 setUrlContent(pictureResult.config.url)
 

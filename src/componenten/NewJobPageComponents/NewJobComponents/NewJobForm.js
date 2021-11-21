@@ -1,18 +1,19 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "./NewJobForm.module.css";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {forkJoin, map} from "rxjs";
 import Upload from "../../Upload/Upload";
 import {Multiselect} from "multiselect-react-dropdown";
-import createMachineObjects from "../../../helpers/createMachineObjects";
 import createEmployeeObjects from "../../../helpers/createEmployeeObjects";
+
+import selectEmployeeId from "../../../helpers/selectEmployeeId";
 
 function NewJobForm() {
 
-    const { register, watch, formState: {errors}, handleSubmit, control } = useForm();
+    const { register, watch, formState: {errors}, handleSubmit} = useForm();
     const selectEmployees = watch("employeesNeeded");
     const [employeeOptions, setEmployeeOptions] = useState();
     const [employeeChoice, setEmployeeChoice] = useState([]);
@@ -21,23 +22,9 @@ function NewJobForm() {
     const token = localStorage.getItem("token");
     const [file, setFile] = useState({});
     const [url, setUrl] = useState({});
+    const [employeeId, setEmployeeId] = useState();
 
-    async function onSubmit(job) {
-
-       forkJoin([
-
-            uploadJob(job),
-            uploadPicture()
-
-        ]).pipe(map(([job, picture]) => {
-
-            assignPictureToJob(job.data.id, picture.data.message)
-           assignEmployeeToJob(job.data.id, employeeChoice )
-        })).subscribe()
-
-    };
-
-    function uploadJob(job) {
+    function uploadJob(job,employeeId) {
 
        return axios.post("http://localhost:8080/jobs",
 
@@ -53,11 +40,11 @@ function NewJobForm() {
                     name: job.job_name,
                     description: job.job_description,
                     employeeNeeded: job.employeesNeeded,
-
+                    employee: employeeChoice[0].employee,
 
                 })
 
-    };
+    }
 
     function uploadPicture() {
 
@@ -86,7 +73,7 @@ function NewJobForm() {
 
         try {
 
-            const result = await axios.post(`http://localhost:8080/jobs/job/${jobId}/picture`,
+            await axios.post(`http://localhost:8080/jobs/job/${jobId}/picture`,
 
                {
 
@@ -111,33 +98,6 @@ function NewJobForm() {
 
     }
 
-    async function assignEmployeeToJob(jobId, employeeId){
-
-        try {
-
-            const result = await axios.post(`http://localhost:8080/jobs/job/${jobId}/employee`,
-
-                {
-
-                    headers: {
-
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-
-                    },
-
-                    id: employeeId,
-
-                })
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    }
-
     useEffect(()=> {
 
         async function fetchEmployees() {
@@ -155,6 +115,7 @@ function NewJobForm() {
 
                 });
 
+
                 const employeeOptions = createEmployeeObjects(result.data);
 
                 setEmployeeOptions(employeeOptions);
@@ -171,7 +132,22 @@ function NewJobForm() {
 
     },[]);
 
-    console.log(employeeChoice)
+
+
+    async function onSubmit(job) {
+console.log(employeeChoice)
+        forkJoin([
+
+             uploadJob(job,employeeId),
+             uploadPicture()
+
+         ]).pipe(map(([job, picture]) => {
+
+             assignPictureToJob(job.data.id, picture.data.message)
+
+         })).subscribe()
+
+    }
     return (
 
         <div id="pageWrapper" >
@@ -224,10 +200,11 @@ function NewJobForm() {
 
                     {selectEmployees&& (
 
+
                         <Multiselect options={employeeOptions}
                                      displayValue="value"
-                                     onSelect={(employeeChoice)=> {setEmployeeChoice(employeeChoice)}}
-                                     onRemove={(employeeChoice)=> {setEmployeeChoice(employeeChoice)}}
+                                     singleSelect={true}
+                                     onSelect={(selectedItem) => setEmployeeChoice(selectedItem)}
                                      closeOnSelect={false}
                                      showCheckbox
                                      placeholder="medewerkers"

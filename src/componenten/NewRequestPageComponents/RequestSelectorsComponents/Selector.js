@@ -6,11 +6,11 @@ function Selector({title, image}) {
 
     function redirect() {
 
-        if(title == "Machines") {
+        if(title === "Machines") {
 
             history.push("/machines")
 
-        } else if (title == "Diensten") {
+        } else if (title === "Diensten") {
 
             history.push("/jobs")
 

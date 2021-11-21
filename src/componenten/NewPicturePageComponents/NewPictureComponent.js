@@ -7,6 +7,7 @@ import SaveButton from "../Buttons/SaveButton/SaveButton";
 import {useHistory} from "react-router-dom";
 
 function NewPictureComponent() {
+
     const { handleSubmit } = useForm();
     const token = localStorage.getItem("token");
     const history = useHistory();
@@ -21,7 +22,7 @@ function NewPictureComponent() {
 
         try {
 
-            const result = await axios.post("http://localhost:8080/pictures/upload", formData,
+            await axios.post("http://localhost:8080/pictures/upload", formData,
 
                 {
 

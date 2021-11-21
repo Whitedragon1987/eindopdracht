@@ -5,6 +5,7 @@ function createMachineObjects(machineOptions) {
         const container = {};
 
         container["id"] = machine.id;
+
         container["value"] = machine.name;
 
         return container;

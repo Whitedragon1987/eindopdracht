@@ -7,7 +7,6 @@ function MachinesComponent({machine_id}) {
 
     const [urlContent, setUrlContent] = useState({});
     const [machineContent, setMachineContent] = useState({});
-    const [pictureContent, setPictureContent] = useState({});
     const history = useHistory();
     const token = localStorage.getItem("token");
 
@@ -64,8 +63,6 @@ function MachinesComponent({machine_id}) {
                         responseType: "blob",
 
                     });
-
-                setPictureContent(pictureResult)
 
                 setUrlContent(pictureResult.config.url)
 

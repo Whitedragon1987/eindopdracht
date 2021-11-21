@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
 import axios from "axios";
 import styles from "./ReviewsComponent.module.css"
 import RatingReadOnly from "../../ReviewPageComponents/RatingComponents/RatingReadOnly/RatingReadOnly";
@@ -7,8 +6,6 @@ function ReviewsComponent({review_id}) {
 
     const [urlContent, setUrlContent] = useState({});
     const [reviewContent, setReviewContent] = useState({});
-    const [pictureContent, setPictureContent] = useState({});
-    const history = useHistory();
     const token = localStorage.getItem("token");
 
     useEffect(()=> {
@@ -65,8 +62,6 @@ function ReviewsComponent({review_id}) {
 
                     });
 
-                setPictureContent(pictureResult)
-
                 setUrlContent(pictureResult.config.url)
 
             }catch (error) {
@@ -79,7 +74,7 @@ function ReviewsComponent({review_id}) {
 
         getPictureContent();
 
-    }, [reviewContent])
+    }, [reviewContent, token])
 
     return(
 

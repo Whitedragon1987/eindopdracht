@@ -16,6 +16,8 @@ import createMachineObjects from "../../../helpers/createMachineObjects";
 import {AuthContext} from "../../../Context/AuthContext";
 import createMachineIdList from "../../../helpers/createMachineIdList";
 import {NavLink} from "react-router-dom";
+import createJobIdList from "../../../helpers/createJobIdList";
+
 
 
 function NewRequest() {
@@ -29,7 +31,31 @@ function NewRequest() {
     const token = localStorage.getItem("token");
     const {user} = useContext(AuthContext);
     const [machineIdList, setMachineIdList] = useState();
+    const [jobIdList, setJobIdList] = useState();
 
+    function selectMachineChoice(selectedList, selectedItem) {
+        setMachinesChoice([
+            ...machinesChoice, selectedItem
+        ])
+    }
+
+    function deselectMachineChoice(selectedList, selectedItem) {
+        setMachinesChoice(machinesChoice.filter((item) => {
+            return item.value !== selectedItem.value
+        }))
+    }
+
+    function selectJobChoice(selectedList, selectedItem) {
+        setJobsChoice([
+            ...jobsChoice, selectedItem
+        ])
+    }
+
+    function deselectJobsChoice(selectedList, selectedItem) {
+        setJobsChoice(jobsChoice.filter((item) => {
+            return item.value !== selectedItem.value
+        }))
+    }
 
     useEffect(()=> {
 
@@ -100,15 +126,21 @@ function NewRequest() {
     async function onSubmit(data) {
 
         if (machinesChoice != null) {
+
             const machineIdList =  createMachineIdList(machinesChoice);
             setMachineIdList(machineIdList);
-            console.log(machineIdList)
+
+        }
+
+        if (jobsChoice != null) {
+            const jobIdList =  createJobIdList(jobsChoice)
+            setJobIdList(jobIdList);
 
         }
 
         try {
 
-            const result = await axios.post("http://localhost:8080/requests",
+            await axios.post("http://localhost:8080/requests",
 
                 {
 
@@ -122,8 +154,8 @@ function NewRequest() {
                     userDataId: user.id,
                     requestStartTime: data.start_date,
                     requestEndTime: data.end_date,
-                    jobIdList: jobsChoice,
-                    machineIdList:machineIdList,
+                    jobIdList: jobIdList,
+                    machineIdList: machineIdList,
 
                 })
 
@@ -134,6 +166,8 @@ function NewRequest() {
         }
 
     }
+
+
 
     return(
 
@@ -159,8 +193,8 @@ function NewRequest() {
 
                                         <Multiselect options={machineOptions}
                                                      displayValue="value"
-                                                     onSelect={(machines) => {setMachinesChoice(machines)}}
-                                                     onRemove={(machines)=> {setMachinesChoice(machines)}}
+                                                     onSelect= {(selectedList, selectedItem) => selectMachineChoice(selectedList, selectedItem)}
+                                                     onRemove={((selectedList, selectedItem) => deselectMachineChoice(selectedList, selectedItem))}
                                                      showCheckbox
                                                      closeOnSelect={false}
                                                      placeholder="machines"
@@ -198,8 +232,8 @@ function NewRequest() {
 
                                         <Multiselect options={jobOptions}
                                                      displayValue="value"
-                                                     onSelect={(jobsChoice)=> {setJobsChoice(jobsChoice)}}
-                                                     onRemove={(jobsChoice)=> {setJobsChoice(jobsChoice)}}
+                                                     onSelect={(selectedList, selectedItem) => selectJobChoice(selectedList, selectedItem)}
+                                                     onRemove={(selectedList, selectedItem) => deselectJobsChoice(selectedList, selectedItem)}
                                                      closeOnSelect={false}
                                                      showCheckbox
                                                      placeholder="diensten"
@@ -301,7 +335,18 @@ function NewRequest() {
 
                     <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                    <NavLink to="/login">Log hier in</NavLink>
+                    <p>
+
+                        <NavLink to="/login">Log hier in</NavLink>
+
+                    </p>
+
+                    <p>
+
+                        <NavLink to="/signup">Schrijf u hier in</NavLink>
+
+                    </p>
+
                 </>
 
             }

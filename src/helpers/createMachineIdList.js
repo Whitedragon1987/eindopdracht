@@ -1,22 +1,16 @@
 function createMachineIdList(machinesChoice) {
 
-    const machineIdList = new Array();
-    // console.log(machineIdList)
-    // console.log(machinesChoice)
+    const machineIdList = [];
 
-    return machinesChoice.map((machine) => {
+     machinesChoice.map((machine) => {
 
         machineIdList.push(machine.id);
 
         return machineIdList;
 
-        // const container = {};
-        //
-        // container["id"] = machine.id;
-        //
-        // return container;
-
     })
+
+    return machineIdList;
 
 }
 

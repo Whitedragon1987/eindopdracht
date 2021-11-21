@@ -13,7 +13,6 @@ import SignUpPage from "./Pages/SignUpPage";
 import NavBar from "./Header/NavBar";
 import HomePage from "./Pages/HomePage";
 import ContactPage from "./Pages/ContactPage";
-import QuotePage from "./Pages/QuotePage";
 import CustomerDataPage from "./Pages/CustomerDataPage";
 import ReviewPage from "./Pages/ReviewPage";
 import EmployeesPage from "./Pages/EmployeesPage";
@@ -23,7 +22,9 @@ import NewPicturePage from "./Pages/NewPicturePage";
 import ReviewsPage from "./Pages/ReviewsPage";
 import RequestsPage from "./Pages/RequestsPage";
 import RequestPage from "./Pages/RequestPage";
-import NavBarAdmin from "./Header/NavBarAdmin";
+import NewQuotePage from "./Pages/NewQuotePage";
+import QuotesPage from "./Pages/QuotesPage";
+import QuotePage from "./Pages/QuotePage";
 
 function App() {
 
@@ -109,7 +110,15 @@ function App() {
                       <EmployeePage/>
                   </Route>
 
-                  <Route exact path="/quote">
+                  <Route exact path="/new_quote">
+                      <NewQuotePage/>
+                  </Route>
+
+                  <Route exact path="/quotes">
+                      <QuotesPage/>
+                  </Route>
+
+                  <Route path="/quote/:quote_id">
                       <QuotePage/>
                   </Route>
 

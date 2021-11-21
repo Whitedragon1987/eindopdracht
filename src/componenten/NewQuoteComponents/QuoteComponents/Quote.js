@@ -5,7 +5,7 @@ import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/Priv
 import {useContext, useState} from "react";
 import axios from "axios";
 import { Controller, useForm} from "react-hook-form";
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {AuthContext} from "../../../Context/AuthContext";
 import DatePicker from "react-datepicker";
 import {forkJoin, map} from "rxjs";
@@ -32,7 +32,7 @@ function Quote(){
 
         })).subscribe();
 
-    };
+    }
 
     function uploadQuote(quote) {
 
@@ -53,7 +53,7 @@ function Quote(){
 
                 })
 
-    };
+    }
 
     function uploadPicture() {
 
@@ -82,7 +82,7 @@ function Quote(){
 
         try {
 
-            const result = await axios.post(`http://localhost:8080/quotes/quote/${quote}/picture`,
+            await axios.post(`http://localhost:8080/quotes/quote/${quote}/picture`,
 
                 {
 
@@ -172,7 +172,18 @@ function Quote(){
 
                     <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                    <NavLink to="/login">Log hier in</NavLink>
+                    <p>
+
+                        <NavLink to="/login">Log hier in</NavLink>
+
+                    </p>
+
+                    <p>
+
+                        <NavLink to="/signup">Schrijf u hier in</NavLink>
+
+                    </p>
+
                 </>
 
             }

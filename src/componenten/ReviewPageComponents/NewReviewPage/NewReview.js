@@ -2,8 +2,8 @@ import styles from "./NewReview.module.css"
 import Upload from "../../Upload/Upload";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import {useForm} from "react-hook-form";
-import {NavLink, useHistory} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {NavLink} from "react-router-dom";
+import {useContext, useState} from "react";
 import {GiMonsteraLeaf} from "react-icons/gi";
 import {forkJoin, map} from "rxjs";
 import axios from "axios";
@@ -11,9 +11,8 @@ import {AuthContext} from "../../../Context/AuthContext";
 
 function NewReview() {
 
-    const { register, watch, formState: {errors}, handleSubmit, control } = useForm();
+    const {register, formState: {errors}, handleSubmit} = useForm();
     const message = "dit veld mag niet leeg blijven"
-    const history = useHistory();
     const token = localStorage.getItem("token");
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
@@ -34,7 +33,7 @@ function NewReview() {
 
         })).subscribe();
 
-    };
+    }
 
     function uploadReview(review) {
 
@@ -84,7 +83,7 @@ function NewReview() {
 
         try {
 
-            const result = await axios.post(`http://localhost:8080/reviews/review/${reviewId}/picture`,
+           await axios.post(`http://localhost:8080/reviews/review/${reviewId}/picture`,
 
                 {
 
@@ -111,7 +110,7 @@ function NewReview() {
 
         <>
 
-            {user != null ?
+            {user !== null ?
 
                 <form onSubmit={handleSubmit(onSubmit)}
                       className={styles['review']} >
@@ -192,7 +191,18 @@ function NewReview() {
 
                     <h1> Om deze content te zien moet u zijn ingelogd </h1>
 
-                    <NavLink to="/login">Log hier in</NavLink>
+                    <p>
+
+                        <NavLink to="/login">Log hier in</NavLink>
+
+                    </p>
+
+                    <p>
+
+                        <NavLink to="/signup">Schrijf u hier in</NavLink>
+
+                    </p>
+
                 </>
 
             }
