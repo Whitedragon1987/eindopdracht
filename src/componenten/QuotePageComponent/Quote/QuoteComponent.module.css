@@ -1,0 +1,83 @@
+.pagewrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+    height: 1100px;
+}
+
+.request-component {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    text-align: center;
+    row-gap: 20px;
+    margin-top: 30px;
+}
+
+.picture-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    height: 270px
+}
+
+.picture{
+    display: grid;
+    width: 100%;
+    height: auto;
+}
+
+.picture-name{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+}
+
+.confirm_button{
+    background-color: #EDF50B;
+    color: #000000;
+    border: #EDF50B 1px solid;
+    position: fixed;
+    top: 20%;
+    right: 10%;
+}
+
+.delete_button{
+    background-color: #EDF50B;
+    color: #000000;
+    border: #EDF50B 1px solid;
+    position: fixed;
+    top: 20%;
+    right: 10%;
+}
+
+.cancel_button{
+    background-color: #EDF50B;
+    color: #000000;
+    border: #EDF50B 1px solid;
+    position: fixed;
+    top: 30%;
+    right: 10%;
+}
+
+.update_button{
+    background-color: #EDF50B;
+    color: #000000;
+    border: #EDF50B 1px solid;
+    position: fixed;
+    top: 40%;
+    right: 10%;
+}
+
+.finished_button{
+    background-color: #EDF50B;
+    color: #000000;
+    border: #EDF50B 1px solid;
+    position: fixed;
+    top: 50%;
+    right: 10%;
+}
