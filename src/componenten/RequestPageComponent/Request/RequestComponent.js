@@ -28,7 +28,7 @@ function RequestComponent() {
             }
 
             });
-
+console.log(requestResult.data)
                 setRequestContent(requestResult.data);
 
             }catch (error) {
@@ -138,31 +138,6 @@ function RequestComponent() {
 
     }
 
-    async function deleteRequest() {
-
-        try {
-
-           await axios.delete(`http://localhost:8080/requests/${request_id}`,
-
-                {
-
-                    headers: {
-
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-
-                    },
-
-                })
-
-        }catch (error) {
-
-            console.error(error)}
-
-        history.push(`/requests`)
-
-    }
-
     return(
         <>
 
@@ -176,13 +151,13 @@ function RequestComponent() {
 
                     {requestContent.requestJobs != null &&
 
-                        requestContent.requestJobs.map((job) => {
+                        requestContent.requestJobs.map((requestJob) => {
 
                             return(
 
-                                job.job.employee ?
+                                requestJob.job.employee ?
 
-                                    <p>Werknemer nodig voor {job.job.jobName} : {job.job.employee.name}</p>
+                                    <p>Werknemer nodig voor {requestJob.job.jobName} : {requestJob.job.employee.name}</p>
 
 
                                     :<></>)
@@ -233,20 +208,37 @@ function RequestComponent() {
 
                                { requestContent.requestMachines.map((machine)=> {
 
-                                   return (
+                                   if(machine.machine.picture != null){
 
-                                       <div className={styles["picture-name"]}>
+                                       return (
 
-                                           <img className={styles["picture"]}
-                                                alt={machine.machine.picture.name}
-                                                src={`data:image/jpeg;base64,${machine.machine.picture.data}`}
-                                           />
+                                           <div className={styles["picture-name"]}>
+
+                                               <img className={styles["picture"]}
+                                                    alt={machine.machine.picture.name}
+                                                    src={`data:image/jpeg;base64,${machine.machine.picture.data}`}
+                                               />
+
+                                               <p>{machine.machine.machineName}</p>
+
+                                           </div>
+
+                                       );
+
+                                   } else {
+
+                                       return(
+
+                                       <div className={styles["machine-name"]}>
 
                                            <p>{machine.machine.machineName}</p>
 
                                        </div>
 
-                                   );
+                                       )
+
+                                   }
+
 
                                })}
 
@@ -266,20 +258,36 @@ function RequestComponent() {
 
                                 { requestContent.requestJobs.map((job)=> {
 
-                                    return (
+                                    if(job.job.picture != null){
 
-                                        <div className={styles["picter-name"]}>
+                                        return (
 
-                                            <img className={styles["picture"]}
-                                                 alt={job.job.picture.name}
-                                                 src={`data:image/jpeg;base64,${job.job.picture.data}`}
-                                            />
+                                            <div className={styles["picter-name"]}>
+
+                                                <img className={styles["picture"]}
+                                                     alt={job.job.picture.name}
+                                                     src={`data:image/jpeg;base64,${job.job.picture.data}`}
+                                                />
+
+                                                <p>{job.job.jobName}</p>
+
+                                            </div>
+
+                                        );
+
+                                    } else {
+
+                                        return(
+
+                                        <div className={styles["job-name"]}>
 
                                             <p>{job.job.jobName}</p>
 
                                         </div>
 
-                                    );
+                                        )
+
+                                    }
 
                                 })}
 
@@ -310,19 +318,12 @@ function RequestComponent() {
 
                                 <button className={styles["cancel_button"]} onClick={cancelRequest} >Annuleer</button>
 
+
                             </>
 
                             :
 
-                            requestContent.status === "CANCELED" ?
-
-                                <button className={styles["delete_button"]} onClick={deleteRequest} >Verwijder</button>
-
-                                :
-
-                            <>
-
-                            </>
+                            <></>
 
                     }
 

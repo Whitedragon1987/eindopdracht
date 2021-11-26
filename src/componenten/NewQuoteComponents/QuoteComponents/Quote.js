@@ -5,7 +5,7 @@ import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/Priv
 import {useContext, useState} from "react";
 import axios from "axios";
 import { Controller, useForm} from "react-hook-form";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {AuthContext} from "../../../Context/AuthContext";
 import DatePicker from "react-datepicker";
 import {forkJoin, map} from "rxjs";
@@ -18,19 +18,28 @@ function Quote(){
     const message = "Dit veld mag niet leeg blijven";
     const { user } = useContext(AuthContext);
     const token = localStorage.getItem("token")
+    const history = useHistory();
 
     async function onSubmit(quote) {
 
-        forkJoin([
+        if(file.type == null){
 
-            uploadQuote(quote),
-            uploadPicture()
+            await uploadQuoteOnly(quote);
 
-        ]).pipe(map(([quote, picture, ]) => {
+        } else {
 
-            assignPictureToQuote(quote.data.id, picture.data.message)
+            forkJoin([
 
-        })).subscribe();
+                uploadQuote(quote),
+                uploadPicture()
+
+            ]).pipe(map(([quote, picture, ]) => {
+
+                assignPictureToQuote(quote.data.id, picture.data.message)
+
+            })).subscribe();
+
+        }
 
     }
 
@@ -103,6 +112,36 @@ function Quote(){
 
         }
 
+        history.push(`/`)
+
+    }
+
+    async function uploadQuoteOnly(quote) {
+
+        try {
+            await  axios.post("http://localhost:8080/quotes",
+
+                {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    },
+
+                    description: quote.description,
+                    date: quote.preference,
+                    userDataId: user.id,
+
+                });
+
+        } catch (error) {
+
+            console.error(error);
+        }
+
+        history.push(`/`)
     }
 
     return(

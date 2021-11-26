@@ -21,16 +21,58 @@ function NewMachineForm() {
 
     async function onSubmit(machine) {
 
-       forkJoin([
+        if(file.type == null) {
 
-           uploadMachine(machine),
-           uploadPicture()
+            await uploadMachineOnly(machine)
 
-       ]).pipe(map(([machine, picture]) => {
+        } else {
 
-           assignPictureToMachine(machine.data.id, picture.data.message)
+            forkJoin([
 
-       })).subscribe();
+                uploadMachine(machine),
+                uploadPicture()
+
+            ]).pipe(map(([machine, picture]) => {
+
+                assignPictureToMachine(machine.data.id, picture.data.message)
+
+            })).subscribe();
+
+        }
+
+    }
+
+    async function uploadMachineOnly(machine) {
+
+        try {
+
+            await axios.post("http://localhost:8080/machines",
+
+                {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    },
+
+                    name: machine.machine_name,
+                    type: machine.machine_type,
+                    description: machine.machine_description,
+                    lastService: machine.machine_last_service,
+                    plannedService: machine.machine_planned_service,
+                    measurements: machine.machine_measurements,
+
+                })
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+        history.push("/machines")
 
     }
 

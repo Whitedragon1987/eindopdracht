@@ -33,7 +33,7 @@ function Upload({setFile, url, setUrl}) {
                 {url !== null ?
 
                     <img src={url}
-                         alt="image" />
+                         alt="uploadImage" />
 
                     :
 

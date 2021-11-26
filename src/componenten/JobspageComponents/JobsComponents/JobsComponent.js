@@ -6,7 +6,6 @@ import {useHistory} from "react-router-dom";
 function JobsComponent({job_id}) {
 
     const [jobContent, setJobContent] = useState({});
-    const [urlContent, setUrlContent] = useState({});
     const history = useHistory();
     const token = localStorage.getItem("token");
 
@@ -43,40 +42,7 @@ function JobsComponent({job_id}) {
 
     }, [job_id]);
 
-    useEffect(()=> {
 
-        async function getPictureContent() {
-
-            try {
-
-                const pictureResult = await axios.get(`http://localhost:8080/pictures/${jobContent.picture.id}`,
-
-                    {
-
-                        headers: {
-
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-
-                        },
-
-                        responseType: "blob",
-
-                    });
-
-                setUrlContent(pictureResult.config.url)
-
-            }catch (error) {
-
-                console.error(error);
-
-            }
-
-        }
-
-        getPictureContent();
-
-    }, [jobContent])
 
     function redirect() {
 
@@ -98,7 +64,7 @@ function JobsComponent({job_id}) {
                         <div className={styles["image"]} >
 
                             <img alt={jobContent.name}
-                                 src={urlContent} />
+                                 src={`data:image/jpeg;base64,${jobContent.picture.data}`} />
 
                         </div>
 

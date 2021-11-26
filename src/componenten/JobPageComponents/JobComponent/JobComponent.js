@@ -44,43 +44,6 @@ function JobComponent() {
 
     }, [job_id]);
 
-    useEffect(()=> {
-
-        async function getPictureContent() {
-
-            try {
-
-                const pictureResult = await axios.get(`http://localhost:8080/pictures/${jobContent.picture.id}`,
-
-                    {
-
-                        headers: {
-
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-
-                        },
-
-                        responseType: "blob",
-
-                    });
-
-                setPictureContent(pictureResult)
-
-                setUrlContent(pictureResult.config.url)
-
-            }catch (error) {
-
-                console.error(error);
-
-            }
-
-        }
-
-        getPictureContent();
-
-    }, [jobContent])
-
     return(
 
         <div className={styles['pagewrapper']} >
@@ -102,7 +65,7 @@ function JobComponent() {
                 <div className={styles["image"]} >
 
                     <img alt={jobContent.name}
-                         src={urlContent} />
+                         src={`data:image/jpeg;base64,${jobContent.picture.data}`} />
 
                 </div>
 

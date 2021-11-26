@@ -1,7 +1,7 @@
 
 import styles from "./PicturesComponent.module.css"
 
-function PicturesComponent({name, url}) {
+function PicturesComponent({name, url, key}) {
 
     return(
 
@@ -16,7 +16,9 @@ function PicturesComponent({name, url}) {
                     <img
                         className={styles["picture"]}
                         alt={name}
-                        src={url} />
+                        src={url}
+                        key={key}
+                    />
 
                 </div>
 

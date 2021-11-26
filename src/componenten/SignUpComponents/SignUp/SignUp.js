@@ -8,7 +8,7 @@ import {NavLink, useHistory} from "react-router-dom";
 
 function SignUp() {
 
-    const [loading, toggleLoading] = useState(false);
+    const [toggleLoading] = useState(false);
     const [registerSucces, toggleRegisterSucces] = useState(false);
     const [error, setError] = useState("")
     const { handleSubmit } = useFormContext();

@@ -4,7 +4,7 @@ function createEmployeeObjects(employeeOptions) {
 
         const container = {};
 
-        // container["id"] = employee.id;
+        container["id"] = employee.id;
 
         container["value"] = employee.name;
 

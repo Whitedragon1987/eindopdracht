@@ -5,7 +5,6 @@ import {useHistory} from "react-router-dom";
 
 function MachinesComponent({machine_id}) {
 
-    const [urlContent, setUrlContent] = useState({});
     const [machineContent, setMachineContent] = useState({});
     const history = useHistory();
     const token = localStorage.getItem("token");
@@ -41,42 +40,7 @@ function MachinesComponent({machine_id}) {
 
         getMachineContent();
 
-    }, [machine_id]);
-
-    useEffect(()=> {
-
-        async function getPictureContent() {
-
-            try {
-
-                const pictureResult = await axios.get(`http://localhost:8080/pictures/${machineContent.picture.id}`,
-
-                    {
-
-                        headers: {
-
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-
-                        },
-
-                        responseType: "blob",
-
-                    });
-
-                setUrlContent(pictureResult.config.url)
-
-            }catch (error) {
-
-                console.error(error);
-
-            }
-
-        }
-
-        getPictureContent();
-
-    }, [machineContent])
+    }, []);
 
     function redirect() {
 
@@ -98,7 +62,7 @@ function MachinesComponent({machine_id}) {
                         <div className={styles["image"]} >
 
                             <img alt={machineContent.name}
-                                 src={urlContent} />
+                                 src={`data:image/jpeg;base64,${machineContent.picture.data}`} />
 
                         </div>
 

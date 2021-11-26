@@ -2,7 +2,6 @@ import styles from "./PrivateContent.module.css"
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../../Context/AuthContext";
 import axios from "axios";
-import CustomerDataForm from "../CustomerDataForm/CustomerDataForm";
 
 function PrivateContent() {
 
@@ -92,16 +91,6 @@ function PrivateContent() {
                         </div>
 
                     </>
-
-                }
-
-                {userdata === false &&
-
-                <div className={styles["form"]} >
-
-                    <CustomerDataForm/>
-
-                </div>
 
                 }
 

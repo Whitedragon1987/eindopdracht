@@ -2,12 +2,14 @@ import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import styles from "./NewEmployeeForm.module.css";
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import {useHistory} from "react-router-dom";
 
 function NewEmployeeForm() {
 
-   const{ register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm();
     const message = "dit veld mag niet leeg blijven"
     const token = localStorage.getItem("token");
+    const history = useHistory();
 
     async function onSubmitEmployee(employee) {
 
@@ -41,6 +43,8 @@ function NewEmployeeForm() {
 
         }
 
+        history.push(`/employees`)
+        
     };
 
     return(

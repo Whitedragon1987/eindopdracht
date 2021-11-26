@@ -6,25 +6,21 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {forkJoin, map} from "rxjs";
 import Upload from "../../Upload/Upload";
-import {Multiselect} from "multiselect-react-dropdown";
 import createEmployeeObjects from "../../../helpers/createEmployeeObjects";
-
-import selectEmployeeId from "../../../helpers/selectEmployeeId";
 
 function NewJobForm() {
 
     const { register, watch, formState: {errors}, handleSubmit} = useForm();
     const selectEmployees = watch("employeesNeeded");
-    const [employeeOptions, setEmployeeOptions] = useState();
-    const [employeeChoice, setEmployeeChoice] = useState([]);
+    const [employeeOptions, setEmployeeOptions] = useState({});
+    // const [employeeChoice, setEmployeeChoice] = useState([]);
     const message = "dit veld mag niet leeg blijven"
     const history = useHistory();
     const token = localStorage.getItem("token");
     const [file, setFile] = useState({});
     const [url, setUrl] = useState({});
-    const [employeeId, setEmployeeId] = useState();
 
-    function uploadJob(job,employeeId) {
+    function uploadJob(job) {
 
        return axios.post("http://localhost:8080/jobs",
 
@@ -40,9 +36,41 @@ function NewJobForm() {
                     name: job.job_name,
                     description: job.job_description,
                     employeeNeeded: job.employeesNeeded,
-                    employee: employeeChoice[0].employee,
+                    employee: job.employeeChoice,
 
                 })
+
+    }
+
+    async function uploadJobOnly(job) {
+
+        try{
+
+            await axios.post("http://localhost:8080/jobs",
+
+                {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    },
+
+                    name: job.job_name,
+                    description: job.job_description,
+                    employeeNeeded: job.employeesNeeded,
+                    employee: job.employeeChoice,
+
+                })
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+        history.push("/jobs")
 
     }
 
@@ -132,22 +160,29 @@ function NewJobForm() {
 
     },[]);
 
-
-
     async function onSubmit(job) {
-console.log(employeeChoice)
-        forkJoin([
 
-             uploadJob(job,employeeId),
-             uploadPicture()
+        if(file.type == null) {
 
-         ]).pipe(map(([job, picture]) => {
+            await uploadJobOnly(job);
 
-             assignPictureToJob(job.data.id, picture.data.message)
+        } else {
 
-         })).subscribe()
+            forkJoin([
+
+                uploadJob(job),
+                uploadPicture()
+
+            ]).pipe(map(([job, picture]) => {
+
+                assignPictureToJob(job.data.id, picture.data.message)
+
+            })).subscribe()
+
+        }
 
     }
+
     return (
 
         <div id="pageWrapper" >
@@ -200,27 +235,17 @@ console.log(employeeChoice)
 
                     {selectEmployees&& (
 
+                        <select id="employee" {...register("employeeChoice")}>
 
-                        <Multiselect options={employeeOptions}
-                                     displayValue="value"
-                                     singleSelect={true}
-                                     onSelect={(selectedItem) => setEmployeeChoice(selectedItem)}
-                                     closeOnSelect={false}
-                                     showCheckbox
-                                     placeholder="medewerkers"
-                                     style={{
-                                         chips: {
-                                             background: '#EDF50B',
-                                             color: `#000`
-                                         },
-                                         multiselectContainer: {
-                                             color: '#000'
-                                         },
-                                         searchBox: {
-                                             border: '1px solid #EDF50B',
-                                             width: `260px`
-                                         }
-                                     }} />
+                            {employeeOptions.map((employeeOption) =>{
+
+                                return(
+
+                                <option value={employeeOption.id} key={employeeOption.id}> {employeeOption.value}</option>
+
+                                )})}
+
+                        </select>
 
                     )}
 

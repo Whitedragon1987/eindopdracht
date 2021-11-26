@@ -2,7 +2,7 @@ import styles from "./NewReview.module.css"
 import Upload from "../../Upload/Upload";
 import SaveButton from "../../Buttons/SaveButton/SaveButton";
 import {useForm} from "react-hook-form";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {useContext, useState} from "react";
 import {GiMonsteraLeaf} from "react-icons/gi";
 import {forkJoin, map} from "rxjs";
@@ -19,19 +19,28 @@ function NewReview() {
     const [file, setFile] = useState({});
     const [url, setUrl] = useState({});
     const { user } = useContext(AuthContext);
+    const history = useHistory();
 
     async function onSubmit(review){
 
-        forkJoin([
+        if(file.type == null){
 
-            uploadReview(review),
-            uploadPicture()
+            await uploadReviewOnly(review)
 
-        ]).pipe(map(([review, picture]) => {
+        } else {
 
-            assignPictureToReview(review.data.id, picture.data.message)
+            forkJoin([
 
-        })).subscribe();
+                uploadReview(review),
+                uploadPicture()
+
+            ]).pipe(map(([review, picture]) => {
+
+                assignPictureToReview(review.data.id, picture.data.message)
+
+            })).subscribe();
+
+        }
 
     }
 
@@ -103,6 +112,39 @@ function NewReview() {
             console.error(error);
 
         }
+
+        history.push(`/contact`)
+
+    }
+
+    async function uploadReviewOnly(review) {
+
+        try {
+
+            await axios.post("http://localhost:8080/reviews",
+
+                {
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+
+                    },
+
+                    value: review.rating,
+                    description: review.description,
+                    name: review.name,
+
+                })
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+        history.push(`/contact`)
 
     }
 

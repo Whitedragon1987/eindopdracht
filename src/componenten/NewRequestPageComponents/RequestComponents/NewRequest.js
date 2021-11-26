@@ -1,7 +1,6 @@
 import {Controller, useForm} from "react-hook-form";
 import styles from "./NewRequest.module.css";
 import {useContext, useEffect, useState} from "react";
-import AlternateAddress from "../AlternateAddress/AlternateAddress";
 import PrivateContent from "../../CustomerDataPageComponents/PrivateContent/PrivateContent";
 import axios from "axios";
 import Selector from "../RequestSelectorsComponents/Selector";
@@ -15,47 +14,48 @@ import createJobObjects from "../../../helpers/createJobObjects";
 import createMachineObjects from "../../../helpers/createMachineObjects";
 import {AuthContext} from "../../../Context/AuthContext";
 import createMachineIdList from "../../../helpers/createMachineIdList";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import createJobIdList from "../../../helpers/createJobIdList";
 
 
 
 function NewRequest() {
 
-    const { watch, register, control, handleSubmit, formState: {errors} } = useForm();
-    const selectAltAddress = watch("altAddress");
+    const { control, handleSubmit, formState: {errors} } = useForm();
     const [jobOptions, setJobOptions] = useState();
     const [machineOptions, setMachineOptions] = useState();
     const [machinesChoice, setMachinesChoice] = useState([]);
     const [jobsChoice, setJobsChoice] = useState([]);
     const token = localStorage.getItem("token");
     const {user} = useContext(AuthContext);
-    const [machineIdList, setMachineIdList] = useState();
-    const [jobIdList, setJobIdList] = useState();
+    const history = useHistory();
+    let machineIdList = {};
+    let jobIdList = {};
 
-    function selectMachineChoice(selectedList, selectedItem) {
-        setMachinesChoice([
-            ...machinesChoice, selectedItem
-        ])
-    }
 
-    function deselectMachineChoice(selectedList, selectedItem) {
-        setMachinesChoice(machinesChoice.filter((item) => {
-            return item.value !== selectedItem.value
-        }))
-    }
-
-    function selectJobChoice(selectedList, selectedItem) {
-        setJobsChoice([
-            ...jobsChoice, selectedItem
-        ])
-    }
-
-    function deselectJobsChoice(selectedList, selectedItem) {
-        setJobsChoice(jobsChoice.filter((item) => {
-            return item.value !== selectedItem.value
-        }))
-    }
+    // function selectMachineChoice(selectedList, selectedItem) {
+    //     setMachinesChoice([
+    //         ...machinesChoice, selectedItem
+    //     ])
+    // }
+    //
+    // function deselectMachineChoice(selectedList, selectedItem) {
+    //     setMachinesChoice(machinesChoice.filter((item) => {
+    //         return item.value !== selectedItem.value
+    //     }))
+    // }
+    //
+    // function selectJobChoice(selectedList, selectedItem) {
+    //     setJobsChoice([
+    //         ...jobsChoice, selectedItem
+    //     ])
+    // }
+    //
+    // function deselectJobsChoice(selectedList, selectedItem) {
+    //     setJobsChoice(jobsChoice.filter((item) => {
+    //         return item.value !== selectedItem.value
+    //     }))
+    // }
 
     useEffect(()=> {
 
@@ -127,17 +127,20 @@ function NewRequest() {
 
         if (machinesChoice != null) {
 
-            const machineIdList =  createMachineIdList(machinesChoice);
-            setMachineIdList(machineIdList);
+            machineIdList = createMachineIdList(machinesChoice);
 
         }
 
         if (jobsChoice != null) {
-            const jobIdList =  createJobIdList(jobsChoice)
-            setJobIdList(jobIdList);
+            jobIdList = createJobIdList(jobsChoice)
 
         }
 
+        await uploadRequest(jobIdList, machineIdList, data)
+
+    }
+
+    async function uploadRequest(jobIdList, machineIdList, data){
         try {
 
             await axios.post("http://localhost:8080/requests",
@@ -164,6 +167,8 @@ function NewRequest() {
             console.error(error);
 
         }
+
+        history.push("/")
 
     }
 
@@ -193,8 +198,10 @@ function NewRequest() {
 
                                         <Multiselect options={machineOptions}
                                                      displayValue="value"
-                                                     onSelect= {(selectedList, selectedItem) => selectMachineChoice(selectedList, selectedItem)}
-                                                     onRemove={((selectedList, selectedItem) => deselectMachineChoice(selectedList, selectedItem))}
+                                                     onSelect= {(selectedList, selectedItem) => {
+                                                         setMachinesChoice([...machinesChoice, selectedItem])}}
+                                                     onRemove={((selectedList, selectedItem) => {setMachinesChoice(machinesChoice.filter((item)=>{
+                                                         return item.value !== selectedItem.value}))})}
                                                      showCheckbox
                                                      closeOnSelect={false}
                                                      placeholder="machines"
@@ -232,8 +239,10 @@ function NewRequest() {
 
                                         <Multiselect options={jobOptions}
                                                      displayValue="value"
-                                                     onSelect={(selectedList, selectedItem) => selectJobChoice(selectedList, selectedItem)}
-                                                     onRemove={(selectedList, selectedItem) => deselectJobsChoice(selectedList, selectedItem)}
+                                                     onSelect= {(selectedList, selectedItem) => {
+                                                         setJobsChoice([...jobsChoice, selectedItem])}}
+                                                     onRemove={((selectedList, selectedItem) => {setJobsChoice(jobsChoice.filter((item)=>{
+                                                         return item.value !== selectedItem.value}))})}
                                                      closeOnSelect={false}
                                                      showCheckbox
                                                      placeholder="diensten"
@@ -301,27 +310,6 @@ function NewRequest() {
                             <h2> Waar en voor wie kunnen wij dit betekenen?  </h2>
 
                             <PrivateContent/>
-
-                            <div className={styles['alt-address']} >
-
-                                <label htmlFor="altAddress" >
-
-                                    Alternatief adres?
-
-                                </label>
-
-                                <input type="checkbox"
-                                       name="altAddress"
-                                       id="altAddress"
-                                       {...register("altAddress")} />
-
-                            </div>
-
-                            {selectAltAddress&& (
-
-                                <AlternateAddress register={register}
-                                                  errors={errors} />
-                            )}
 
                         </div>
 

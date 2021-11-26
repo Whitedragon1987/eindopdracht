@@ -32,7 +32,7 @@ function ContactPageComponent({reviews, pictures}) {
 
                             </strong>
 
-                            <NavLink to="/review" exact activeClassName="active-link">
+                            <NavLink activeClassName="active-link" to="/review">
 
                                 plaats uw review
 

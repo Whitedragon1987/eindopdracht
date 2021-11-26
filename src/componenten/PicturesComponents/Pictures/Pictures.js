@@ -53,7 +53,8 @@ function Pictures() {
 
                         return (
 
-                            <PicturesComponent name={picture.name}
+                            <PicturesComponent key={picture.id}
+                                               name={picture.name}
                                                url={picture.url} />);
 
                     })}
