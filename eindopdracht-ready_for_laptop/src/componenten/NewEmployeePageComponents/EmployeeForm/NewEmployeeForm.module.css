@@ -1,0 +1,21 @@
+.new-employee-form{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    position: fixed;
+    top: 24%;
+    /*14%*/
+    left: 43%;
+    height: 600px;
+    z-index: auto;
+}
+
+.new-employee{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    position: fixed;
+    top: 18%;
+    /*8%*/
+    left: 44%;
+}

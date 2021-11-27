@@ -1,0 +1,22 @@
+.jobs-wrapper{
+    display: grid;
+    width: 99%;
+    grid-template-rows: 10% 81% 8%;
+    height: 350px;
+    text-align: center;
+    border: white 1px solid;
+}
+
+.jobs-images{
+    width: 99%;
+    padding: 9px;
+    height: 270px;
+    display: -ms-inline-flexbox;
+    align-items: center;
+}
+
+.link{
+    text-align: right;
+    margin-right: 20px;
+}
+

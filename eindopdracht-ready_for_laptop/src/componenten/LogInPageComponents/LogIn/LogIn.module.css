@@ -1,0 +1,11 @@
+.login-wrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    row-gap: 30px;
+    width: 99%;
+    height: 600px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

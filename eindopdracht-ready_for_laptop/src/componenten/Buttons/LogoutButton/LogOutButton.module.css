@@ -1,0 +1,9 @@
+.log-out-button {
+    position: fixed;
+    top: 85%;
+    right: 41%;
+    font-size: 20px;
+    border-color: yellow;
+    color: black;
+    background-color: yellow;
+}

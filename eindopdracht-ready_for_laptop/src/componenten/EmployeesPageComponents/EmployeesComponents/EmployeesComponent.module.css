@@ -1,0 +1,13 @@
+.component-wrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    border: white 1px solid;
+    width: 99%;
+}
+
+.data-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
