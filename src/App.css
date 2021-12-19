@@ -1,0 +1,66 @@
+* {
+  font-family: "Segoe UI Symbol";
+  font-size: 20px;
+}
+
+body{
+  background-color: #000000;
+  color: #EDF50B;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.nav-container {
+  width:  99%;
+  display: -ms-inline-flexbox;
+  justify-content: space-between;
+  align-items: center;
+  border: white 1px solid;
+}
+
+ul {
+  list-style-type: none;
+  flex-basis: 550px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li{
+  margin: auto;
+}
+
+.active-link {
+  border-bottom: 4px solid #ff0000;
+}
+
+a{
+  color: #EDF50B;
+  text-decoration: none;
+}
+
+h1{
+  font-size: x-large;
+}
+
+input{
+  color: #EDF50B;
+  background-color: #000000;
+  height: 30px;
+}
+
+img{
+  max-height: 250px;
+  max-width: 250px;
+}

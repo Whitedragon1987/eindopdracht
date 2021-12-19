@@ -1,0 +1,14 @@
+.log-in-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    row-gap: 30px;
+    align-items: center;
+}
+
+.input-username, .input-password{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    align-items: center;
+}

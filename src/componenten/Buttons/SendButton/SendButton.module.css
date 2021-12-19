@@ -1,0 +1,9 @@
+.send-button{
+    position: absolute;
+    left: 80%;
+    top: 70%;
+    font-size: 20px;
+    border-color: yellow;
+    color: black;
+    background-color: yellow;
+}

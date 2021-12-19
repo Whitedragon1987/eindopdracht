@@ -1,0 +1,13 @@
+.new-machine-form{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    height: 950px;
+}
+
+.new-machine{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
